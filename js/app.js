@@ -12,3 +12,14 @@
 
 8. Create reset Functionality
  */
+
+const carrier1 = {isSunk: false, hitCount: 0 , length:5}
+const battleship1 = {isSunk: false, hitCount: 0 , length:4}
+const cruiser1 = {isSunk: false, hitCount: 0 , length:3}
+const submarine1 = {isSunk: false, hitCount: 0 , length:3}
+const destroyer1 = {isSunk: false, hitCount: 0 , length:2}
+const carrier2 = {isSunk: false, hitCount: 0 , length:5}
+const battleship2 = {isSunk: false, hitCount: 0 , length:4}
+const cruiser2 = {isSunk: false, hitCount: 0 , length:3}
+const submarine2 = {isSunk: false, hitCount: 0 , length:3}
+const destroyer2 = {isSunk: false, hitCount: 0 , length:2}
