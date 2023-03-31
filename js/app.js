@@ -1,18 +1,30 @@
-/* Pseudocode:
+/* Pseudocode
 1. Create ship objects to place in the Game
 2. Store cached element references
-3. Load the game, initialize both boards to be empty, Game state will start with giving the user the option to place their ships, and then player 2 will after
-4. Handle player click to place each individual ship on the respective board
-5. Both boards will then become blank, unable to see the ships.
-6. Game state will be rendered to the user after each hit attempt
+3. Create 2 squares to help create battleship game functionality
+/ Create interface screen with a button to select vertical or horizontal 
+/ handle player click to place ship onto squares
+/handle logic when player attempts placing ship in invalid location
+ —- Handle logic of when placing piece on the edge
+ —-- create functions for hit() miss() hitandSunk() or invalid placement
+4.create both boards once functionality of the individual squares is correct
+5. Load the game, initialize both boards to be empty, Game state will start with giving the user the option to place their ships with interface created in step 3 above, and then player 2 will after on the same interface
+
+
+6. Both boards will then become blank, unable to see the ships.
+7. Game state will be rendered to the user after each hit attempt
+***Animations added for these: 
+8.. Handle player click on each board to see if ship is hit
  -miss
  -hit
  -hit and sunk
  -invalid
-7. Handle player click on each board to see if ship is hit
+- show only one board at a time, and switch after turn attempt
 - Handle winner when all 5 ships are sunk
-8. Create reset Functionality
+9. Create reset Functionality
+10. Add Css styling to project
  */
+/*-------------------------------- Constants --------------------------------*/
 let board
 class Ship {
   constructor(nation, length) {
@@ -40,6 +52,14 @@ const cruiserSoviet = new Ship('Soviet', 3)
 const submarineSoviet = new Ship('Soviet', 3)
 const destroyerSoviet = new Ship('Soviet', 2)
 
+/*---------------------------- Variables (state) ----------------------------*/
 
+/*------------------------ Cached Element References ------------------------*/
+const squareEls = document.getElementsByClassName('sqr')
 
+/*----------------------------- Event Listeners -----------------------------*/
+
+/*-------------------------------- Functions --------------------------------*/
+
+console.log(squareEls);
 
