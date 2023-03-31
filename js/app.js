@@ -25,6 +25,9 @@ class Ship {
     this.isSunk = true
     console.log('sunk');
   }
+  hit(){
+    this.hitCount++
+  }
 }
 const carrierUSA = new Ship('USA', 5)
 const battleshipUSA = new Ship('USA', 4)
