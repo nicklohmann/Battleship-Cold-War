@@ -38,6 +38,9 @@ class Ship {
   }
   hit(){
     this.hitCount++
+    if (this.hitCount === this.length) {
+      this.destroyed()
+    }
   }
 }
 const carrierUSA = new Ship('USA', 5)
@@ -49,7 +52,7 @@ const carrierSoviet = new Ship('Soviet', 5)
 const battleshipSoviet = new Ship('Soviet', 4)
 const cruiserSoviet = new Ship('Soviet', 3)
 const submarineSoviet = new Ship('Soviet', 3)
-const destroyerSoviet = new Ship('Soviet', 2)
+const destroyerSoviet = new Ship('Soviet', 1)
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board1
@@ -63,8 +66,13 @@ let horizontalEl = document.querySelector('#Horizonal')
 /*----------------------------- Event Listeners -----------------------------*/
 
 /*-------------------------------- Functions --------------------------------*/
-console.log(board1 + 'worked');
-console.log(verticalEl.textContent);
-console.log(squareEls);
-console.log('hello');
+// console.log(destroyerSoviet);
+// console.log(destroyerSoviet.hit());
+// console.log(destroyerSoviet)
 
+// console.log(board1 + 'worked');
+// console.log(verticalEl.textContent);
+// console.log(squareEls);
+// console.log('hello');
+
+// console.log(squareEls.item(0));
