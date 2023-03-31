@@ -25,7 +25,6 @@
 10. Add Css styling to project
  */
 /*-------------------------------- Constants --------------------------------*/
-let board
 class Ship {
   constructor(nation, length) {
     this.hitCount = 0
@@ -53,13 +52,19 @@ const submarineSoviet = new Ship('Soviet', 3)
 const destroyerSoviet = new Ship('Soviet', 2)
 
 /*---------------------------- Variables (state) ----------------------------*/
-
+let board1
+let board2
 /*------------------------ Cached Element References ------------------------*/
+const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('sqr')
+let verticalEl = document.querySelector('#Vertical')
+let horizontalEl = document.querySelector('#Horizonal')
 
 /*----------------------------- Event Listeners -----------------------------*/
 
 /*-------------------------------- Functions --------------------------------*/
-
+console.log(board1 + 'worked');
+console.log(verticalEl.textContent);
 console.log(squareEls);
+console.log('hello');
 
