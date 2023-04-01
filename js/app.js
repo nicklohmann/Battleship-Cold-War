@@ -26,11 +26,12 @@
  */
 /*-------------------------------- Constants --------------------------------*/
 class Ship {
-  constructor(nation, length) {
+  constructor(nation, length, name) {
     this.hitCount = 0
     this.isSunk = false
     this.nation = nation
     this.length = length
+    this.name = name
   }
   destroyed() {
     this.isSunk = true
@@ -43,21 +44,24 @@ class Ship {
     }
   }
 }
-const carrierUSA = new Ship('USA', 5)
-const battleshipUSA = new Ship('USA', 4)
-const cruiserUSA = new Ship('USA', 3)
-const submarineUSA = new Ship('USA', 3)
-const destroyerUSA = new Ship('USA', 2)
-const carrierSoviet = new Ship('Soviet', 5)
-const battleshipSoviet = new Ship('Soviet', 4)
-const cruiserSoviet = new Ship('Soviet', 3)
-const submarineSoviet = new Ship('Soviet', 3)
-const destroyerSoviet = new Ship('Soviet', 1)
-const testShip = new Ship ('USA' ,2)
+const carrierUSA = new Ship('USA', 5, 'carrier')
+const battleshipUSA = new Ship('USA', 4, 'battleship')
+const cruiserUSA = new Ship('USA', 3, 'cruiser')
+const submarineUSA = new Ship('USA', 3, 'submarine')
+const destroyerUSA = new Ship('USA', 2, 'destroyer')
+const carrierSoviet = new Ship('Soviet', 5, 'carrier')
+const battleshipSoviet = new Ship('Soviet', 4, 'battleship')
+const cruiserSoviet = new Ship('Soviet', 3, 'cruiser')
+const submarineSoviet = new Ship('Soviet', 3, 'submarine')
+const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
+const testShip = new Ship ('USA' ,2, 'test')
+
 
 /*---------------------------- Variables (state) ----------------------------*/
-let boardUSA = [0]
-let boardSoviet = [0]
+let boardUSA = []
+let boardSoviet = []
+let shipListUSA = []
+let shipListSoviet = []
 let testBoard = [0,0]
 let currentShip = testShip
 console.log(testShip);
@@ -78,6 +82,19 @@ document.addEventListener('click', renderPlaceShip)
 
 
 /*-------------------------------- Functions --------------------------------*/
+shipListUSA.push(carrierUSA),
+shipListUSA.push(battleshipUSA)
+shipListUSA.push(cruiserUSA)
+shipListUSA.push(submarineUSA)
+shipListUSA.push(destroyerUSA)
+
+shipListSoviet.push(carrierSoviet)
+shipListSoviet.push(battleshipSoviet)
+shipListSoviet.push(cruiserSoviet)
+shipListSoviet.push(submarineSoviet)
+shipListSoviet.push(destroyerSoviet)
+
+
 function renderPlaceShip(evt) {
   const sqIdx = evt.target.id
   let isSquare = sqIdx.slice(-3)
