@@ -55,7 +55,8 @@ const battleshipSoviet = new Ship('Soviet', 4, 'battleship')
 const cruiserSoviet = new Ship('Soviet', 3, 'cruiser')
 const submarineSoviet = new Ship('Soviet', 3, 'submarine')
 const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
-const testShip = new Ship('USA', 2, 'test')
+const testShip = new Ship('USA', 1, 'test')
+const testShip2 = new Ship('USA', 1, 'test')
 
 
 /*---------------------------- Variables (state) ----------------------------*/
@@ -64,7 +65,9 @@ let boardSoviet = []
 let shipListUSA = []
 let shipListSoviet = []
 let testBoard = []
+let testBoard2 = [0]
 let shipListTest = [testShip]
+let shipListTest2 = [testShip]
 let currentShip = testShip
 let currentlist = shipListTest
 let currentBoard = testBoard
@@ -101,12 +104,20 @@ shipListSoviet.push(cruiserSoviet)
 shipListSoviet.push(submarineSoviet)
 shipListSoviet.push(destroyerSoviet)
 
+//function initSetUp {
+//
+//}
 
 function renderShipsSetup() {
   //console.log(num);
+  handleClick(evt)
   updateNavBoard()
+  
 }
 function handleClick(evt) {
+  if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
+    return
+  }
   if (isSquareValid() === false) {
     return
   }
@@ -118,6 +129,7 @@ function handleClick(evt) {
     console.log('not square');
     return
   }
+  console.log(finished);
   if (finished === true) {
     return
   }
@@ -143,10 +155,10 @@ function updateNavBoard(evt) {
 
 }
 function placeShip() {
-  testBoard[num] = currentShip
+  currentBoard[num] = currentShip
   currentShip.isPlaced = true
   console.log('Place ship works');
-  console.log(testBoard);
+  console.log(currentBoard);
 
 }
 function isSquareValid(){
@@ -167,8 +179,8 @@ function placementSwitchBoard(finished) {
   }
   //console.log(currentBoard);
   if (currentBoard === testBoard) {
-    currentBoard = boardSoviet
-    console.log('board Switched' + currentBoard);
+    currentBoard = testBoard2
+    console.log('board Switched:' + currentBoard);
   }
 }
 function resetNavBoard() {
@@ -178,20 +190,9 @@ function resetNavBoard() {
   //placePieceMessageEl.add()
   //horizontalBtn.add()
   //verticalBtn.add()
+  placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   console.log('nav reset');
+
 }
 
-
-
-
-//console.log(placePieceMessageEl.textContent);
-// console.log(destroyerSoviet);
-// console.log(destroyerSoviet.hit());
-// console.log(destroyerSoviet)
-
-// console.log(board1 + 'worked');
-// console.log(verticalEl.textContent);
-// console.log(squareEls);
-// console.log('hello');
-
-// console.log(squareEls.item(0));
+//Need logic for if valid square is clicked for placement
