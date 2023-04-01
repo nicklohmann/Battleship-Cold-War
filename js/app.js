@@ -213,16 +213,22 @@ function playerTurn() {
 //Need logic for if valid square is clicked for placement
 
 //create Boards
-const width = 10;
+
 function createBoard(nation) {
   const gameBoardRow = document.createElement('div')
   gameBoardRow.classList.add(`game-board`)
   gameBoardRow.style.backgroundColor = 'blue'
   gameBoardRow.id = nation
   //create 100 squares
-  for(let i = 100; i < width * width;i++)
+  for(let i = 0; i < 100;i++) {
 
-  gameBoard1.append(gameBoardRow)
+  gameBoard1.append(gameBoardRow) 
+  document.createElement('div')
+  const square = document.createElement('div')
+  square.classList.add('square')
+  square.id = i
+  gameBoardRow.append(square)
+  }
 }
 createBoard('USA')
 createBoard('Soviet')

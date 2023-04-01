@@ -28,6 +28,8 @@ nav {
   
 }
 .game-board {
+  display: flex;
+  flex-wrap: wrap;
   width: 200px;
   height: 200px;
 
@@ -40,5 +42,6 @@ nav {
 .square {
   width: 20px;
   height: 20px;
-
+  border: solid 1px red;
+  box-sizing: border-box;
 }
