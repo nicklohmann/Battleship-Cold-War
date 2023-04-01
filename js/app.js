@@ -58,14 +58,31 @@ const destroyerSoviet = new Ship('Soviet', 1)
 let board1
 let board2
 /*------------------------ Cached Element References ------------------------*/
+let placePieceMessageEl = document.querySelector('#directionBtn')
 const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('sqr')
-let verticalEl = document.querySelector('#Vertical')
-let horizontalEl = document.querySelector('#Horizonal')
+let verticalBtn = document.querySelector('#Vertical')
+let horizontalBtn = document.querySelector('#Horizonal')
 
 /*----------------------------- Event Listeners -----------------------------*/
+//squareEls.addEventListener('click' , placeShip)
+verticalBtn.addEventListener('click' ,verticalOrHorizontal);
+horizontalBtn.addEventListener('click' , verticalOrHorizontal);
+
 
 /*-------------------------------- Functions --------------------------------*/
+function render() {
+  
+}
+function verticalOrHorizontal() {
+  console.log("button works");
+}
+function placeShip(evt) {
+  
+}
+
+
+//console.log(placePieceMessageEl.textContent);
 // console.log(destroyerSoviet);
 // console.log(destroyerSoviet.hit());
 // console.log(destroyerSoviet)
