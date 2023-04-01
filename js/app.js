@@ -56,8 +56,11 @@ const destroyerSoviet = new Ship('Soviet', 1)
 const testShip = new Ship ('USA' ,2)
 
 /*---------------------------- Variables (state) ----------------------------*/
-let board1
-let board2
+let boardUSA = [0]
+let boardSoviet = [0]
+let testBoard = [0,0]
+let currentShip = testShip
+console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 const board1El = document.querySelector('.board')
@@ -83,7 +86,10 @@ function renderPlaceShip(evt) {
     console.log('not square');
     return
   }
-  placeShip()
+  let num = sqIdx[0]
+  console.log(num);
+  placeShip(num)
+  
 }
 function verticalOrHorizontal() {
   placePieceMessageEl.remove()
@@ -92,8 +98,9 @@ function verticalOrHorizontal() {
   console.log("button works");
   
 }
-function placeShip(evt) {
-  console.log("works");
+function placeShip(idx) {
+  testBoard[idx] = currentShip
+  
 }
 
 
