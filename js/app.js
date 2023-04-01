@@ -67,7 +67,11 @@ let testBoard = []
 let shipListTest = [testShip]
 let currentShip = testShip
 let currentlist = shipListTest
-console.log(testShip);
+let currentBoard = testBoard
+let finished = false
+let num
+let vertOrHor = 'Vertical'
+//console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 const board1El = document.querySelector('.board')
@@ -77,9 +81,9 @@ let horizontalBtn = document.querySelector('#Horizontal')
 
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
-verticalBtn.addEventListener('click', verticalOrHorizontal)
-horizontalBtn.addEventListener('click', verticalOrHorizontal)
-document.addEventListener('click', renderPlaceShip)
+verticalBtn.addEventListener('click', updateNavBoard)
+horizontalBtn.addEventListener('click', updateNavBoard)
+document.addEventListener('click' , handleClick)
 
 
 
@@ -98,41 +102,85 @@ shipListSoviet.push(submarineSoviet)
 shipListSoviet.push(destroyerSoviet)
 
 
-function renderPlaceShip(evt) {
-  const sqIdx = evt.target.id
-  let isSquare = sqIdx.slice(-3)
+function renderShipsSetup() {
+  //console.log(num);
+  updateNavBoard()
+}
+function handleClick(evt) {
+  if (isSquareValid() === false) {
+    return
+  }
+  const clicked = evt.target.id
+  let isSquare = clicked.slice(3,6)
+  console.log(isSquare);
   //checks if clicked on square
   if (isSquare != 'sqr') {
     console.log('not square');
     return
   }
-  let num = sqIdx[0]
-  console.log(num);
+  if (finished === true) {
+    return
+  }
+  num = clicked[0]
   placeShip(num)
-  allShipsPlacedcheck(currentlist)
+  allShipsPlacedCheck(currentlist)
+  placementSwitchBoard(finished)
+  resetNavBoard()
+  
+}
+function updateNavBoard(evt) {
+  let clicked = evt.target.id
+  if (clicked === 'Vertical'){
+    placePieceMessageEl.textContent = 'Vertical'
+  }
+  if (clicked === 'Horizontal') {
+    placePieceMessageEl.textContent = 'Horizontal'
+  }
+  //horizontalBtn.remove()
+  //verticalBtn.remove()
+
+  //console.log("button works");
 
 }
-function verticalOrHorizontal() {
-  placePieceMessageEl.remove()
-  horizontalBtn.remove()
-  verticalBtn.remove()
-  console.log("button works");
-
-}
-function placeShip(idx) {
-  testBoard[idx] = currentShip
+function placeShip() {
+  testBoard[num] = currentShip
   currentShip.isPlaced = true
+  console.log('Place ship works');
   console.log(testBoard);
 
 }
-function allShipsPlacedcheck(currentlist) {
-  let finished = false
+function isSquareValid(){
+  return true
+}
+function allShipsPlacedCheck(currentlist) {
   finished = currentlist.every(function (onBoard) {
+    //console.log(finished);
     return onBoard.isPlaced
   })
+
   //currentlist = shipListSoviet
-  //console.log(currentlist);
+  console.log('All ships Checked: '+ finished);
 }
+function placementSwitchBoard(finished) {
+  if (finished === false) {
+    return
+  }
+  //console.log(currentBoard);
+  if (currentBoard === testBoard) {
+    currentBoard = boardSoviet
+    console.log('board Switched' + currentBoard);
+  }
+}
+function resetNavBoard() {
+  if (finished === false) {
+    return
+  }
+  //placePieceMessageEl.add()
+  //horizontalBtn.add()
+  //verticalBtn.add()
+  console.log('nav reset');
+}
+
 
 
 
