@@ -53,6 +53,7 @@ const battleshipSoviet = new Ship('Soviet', 4)
 const cruiserSoviet = new Ship('Soviet', 3)
 const submarineSoviet = new Ship('Soviet', 3)
 const destroyerSoviet = new Ship('Soviet', 1)
+const testShip = new Ship ('USA' ,2)
 
 /*---------------------------- Variables (state) ----------------------------*/
 let board1
@@ -60,20 +61,29 @@ let board2
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 const board1El = document.querySelector('.board')
-const squareEls = document.getElementsByClassName('sqr')
+const squareEls = document.getElementsByClassName('.sqr')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
-verticalBtn.addEventListener('click' ,verticalOrHorizontal);
+verticalBtn.addEventListener('click' ,verticalOrHorizontal)
 horizontalBtn.addEventListener('click' , verticalOrHorizontal)
+document.addEventListener('click', renderPlaceShip)
+
 
 
 
 /*-------------------------------- Functions --------------------------------*/
-function renderPlaceShip() {
-  
+function renderPlaceShip(evt) {
+  const sqIdx = evt.target.id
+  let isSquare = sqIdx.slice(-3)
+  //checks if clicked on square
+  if (isSquare != 'sqr') {
+    console.log('not square');
+    return
+  }
+  placeShip()
 }
 function verticalOrHorizontal() {
   placePieceMessageEl.remove()
@@ -83,7 +93,7 @@ function verticalOrHorizontal() {
   
 }
 function placeShip(evt) {
-  
+  console.log("works");
 }
 
 
