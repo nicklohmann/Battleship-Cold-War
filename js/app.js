@@ -62,20 +62,25 @@ let placePieceMessageEl = document.querySelector('#directionBtn')
 const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('sqr')
 let verticalBtn = document.querySelector('#Vertical')
-let horizontalBtn = document.querySelector('#Horizonal')
+let horizontalBtn = document.querySelector('#Horizontal')
 
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 verticalBtn.addEventListener('click' ,verticalOrHorizontal);
-horizontalBtn.addEventListener('click' , verticalOrHorizontal);
+horizontalBtn.addEventListener('click' , verticalOrHorizontal)
+
 
 
 /*-------------------------------- Functions --------------------------------*/
-function render() {
+function renderPlaceShip() {
   
 }
 function verticalOrHorizontal() {
+  placePieceMessageEl.remove()
+  horizontalBtn.remove()
+  verticalBtn.remove()
   console.log("button works");
+  
 }
 function placeShip(evt) {
   
