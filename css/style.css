@@ -27,3 +27,18 @@ nav {
   background-color: aqua;
   
 }
+.game-board {
+  width: 200px;
+  height: 200px;
+
+}
+#board1Container {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+}
+.square {
+  width: 20px;
+  height: 20px;
+
+}

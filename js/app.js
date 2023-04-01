@@ -67,13 +67,14 @@ let shipListSoviet = []
 let testBoard = []
 let testBoard2 = [0]
 let shipListTest = [testShip]
-let shipListTest2 = [testShip]
+let shipListTest2 = [testShip2]
 let currentShip = testShip
 let currentlist = shipListTest
 let currentBoard = testBoard
 let finished = false
 let num
 let vertOrHor = 'Vertical'
+let placeDirection
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -81,7 +82,7 @@ const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('.sqr')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
-
+let gameBoard1 = document.querySelector('#board1Container')
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 verticalBtn.addEventListener('click', updateNavBoard)
@@ -115,6 +116,10 @@ function renderShipsSetup() {
   
 }
 function handleClick(evt) {
+  let counter = 0;
+  if (counter === 2) {
+    return
+  }
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
     return
   }
@@ -137,16 +142,21 @@ function handleClick(evt) {
   placeShip(num)
   allShipsPlacedCheck(currentlist)
   placementSwitchBoard(finished)
-  resetNavBoard()
-  
+  if (finished === true){
+    resetNavBoard()
+    counter++
+    console.log(counter);
+  }
 }
 function updateNavBoard(evt) {
   let clicked = evt.target.id
   if (clicked === 'Vertical'){
     placePieceMessageEl.textContent = 'Vertical'
+    placeDirection = 'Vertical'
   }
   if (clicked === 'Horizontal') {
     placePieceMessageEl.textContent = 'Horizontal'
+    placeDirection = 'Horizontal'
   }
   //horizontalBtn.remove()
   //verticalBtn.remove()
@@ -181,18 +191,38 @@ function placementSwitchBoard(finished) {
   if (currentBoard === testBoard) {
     currentBoard = testBoard2
     console.log('board Switched:' + currentBoard);
+    console.log('1st list: '+currentlist);
+    currentlist = shipListTest2
+    
+    console.log('list switched: ' + currentlist);
   }
 }
 function resetNavBoard() {
-  if (finished === false) {
-    return
-  }
   //placePieceMessageEl.add()
   //horizontalBtn.add()
   //verticalBtn.add()
+  finished = false
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   console.log('nav reset');
 
 }
 
+function playerTurn() {
+  return
+}
 //Need logic for if valid square is clicked for placement
+
+//create Boards
+const width = 10;
+function createBoard(nation) {
+  const gameBoardRow = document.createElement('div')
+  gameBoardRow.classList.add(`game-board`)
+  gameBoardRow.style.backgroundColor = 'blue'
+  gameBoardRow.id = nation
+  //create 100 squares
+  for(let i = 100; i < width * width;i++)
+
+  gameBoard1.append(gameBoardRow)
+}
+createBoard('USA')
+createBoard('Soviet')
