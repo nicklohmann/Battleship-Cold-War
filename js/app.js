@@ -61,7 +61,14 @@ const testShip2 = new Ship('USA', 1, 'test')
 
 /*---------------------------- Variables (state) ----------------------------*/
 let boardUSA = []
+for (let i = 1; i <= 100; i++) {
+  boardUSA.push(i)
+}
 let boardSoviet = []
+  
+for (let i = 1; i <= 100; i++){
+  boardSoviet.push(i)
+}
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
 let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet,destroyerSoviet]
 let currentlist = shipListUSA
@@ -129,7 +136,8 @@ function handleClick(evt) {
   }
   console.log(finished);
   
-  num = clicked[0]
+  num = clicked.slice(2,4)
+  console.log('num:' + num);
   renderShipsSetup()
   
 }
@@ -149,20 +157,23 @@ function updateNavBoard(evt) {
   //console.log("button works");
 
 }
-function placeShip() {
-  currentBoard[num] = currentShip
-  i = 0
-  if(placeDirection === 'Horizontal')
-  while (i < currentShip.length) {
-    currentBoard[num] = currentShip
-    i++
+function placeShip(num) {
+  let i = currentShip.length
+    if(placeDirection === 'Horizontal') {
+    while (i!=0) {
+      currentBoard[num] = currentShip
+      
+      num++
+      i--
+      console.log(currentBoard);
+    }
   }
-  if (placeDirection === 'Vertical') {
-    return
-  }
+  //if (placeDirection === 'Vertical') {
+   // return
+  //}
   currentShip.isPlaced = true
   console.log('Place ship works');
-  console.log(currentBoard);
+  //console.log(currentBoard);
 
 }
 function isSquareValid(){
@@ -182,11 +193,11 @@ function placementSwitchBoard(finished) {
     return
   }
   //console.log(currentBoard);
-  if (currentBoard === testBoard) {
-    currentBoard = testBoard2
+  if (currentBoard === boardUSA) {
+    currentBoard = boardSoviet
     console.log('board Switched:' + currentBoard);
     console.log('1st list: '+currentlist);
-    currentlist = shipListTest2
+    currentlist = shipListSoviet
     
     console.log('list switched: ' + currentlist);
   }
