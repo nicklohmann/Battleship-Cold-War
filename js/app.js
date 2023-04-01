@@ -62,15 +62,11 @@ const testShip2 = new Ship('USA', 1, 'test')
 /*---------------------------- Variables (state) ----------------------------*/
 let boardUSA = []
 let boardSoviet = []
-let shipListUSA = []
-let shipListSoviet = []
-let testBoard = []
-let testBoard2 = [0]
-let shipListTest = [testShip]
-let shipListTest2 = [testShip2]
-let currentShip = testShip
-let currentlist = shipListTest
-let currentBoard = testBoard
+let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
+let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet,destroyerSoviet]
+let currentlist = shipListUSA
+let currentBoard = boardUSA
+let currentShip = shipListUSA[0]
 let finished = false
 let num
 let vertOrHor = 'Vertical'
@@ -78,75 +74,64 @@ let placeDirection
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
+let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
 const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('.sqr')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 let gameBoard1 = document.querySelector('#board1Container')
+let gameBoard2 = document.querySelector('#board2Container')
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
+document.addEventListener('DOMContentLoaded' ,init)
 verticalBtn.addEventListener('click', updateNavBoard)
 horizontalBtn.addEventListener('click', updateNavBoard)
-document.addEventListener('click' , handleClick)
+gameBoard1.addEventListener('click' , handleClick)
 
 
 
 
 /*-------------------------------- Functions --------------------------------*/
-shipListUSA.push(carrierUSA),
-shipListUSA.push(battleshipUSA)
-shipListUSA.push(cruiserUSA)
-shipListUSA.push(submarineUSA)
-shipListUSA.push(destroyerUSA)
-
-shipListSoviet.push(carrierSoviet)
-shipListSoviet.push(battleshipSoviet)
-shipListSoviet.push(cruiserSoviet)
-shipListSoviet.push(submarineSoviet)
-shipListSoviet.push(destroyerSoviet)
-
+console.log(currentShip);
 //function initSetUp {
 //
 //}
+function init(Event) {
+  createBoard('USA')
 
+}
 function renderShipsSetup() {
   //console.log(num);
-  handleClick(evt)
-  updateNavBoard()
-  
+  placeShip(num)
+  allShipsPlacedCheck(currentlist)
+  placementSwitchBoard(finished)
+  if (finished === true){
+    resetNavBoard()
+  }
 }
 function handleClick(evt) {
-  let counter = 0;
-  if (counter === 2) {
-    return
-  }
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
     return
   }
   if (isSquareValid() === false) {
     return
   }
+  if (finished === true) {
+    return
+  }
   const clicked = evt.target.id
-  let isSquare = clicked.slice(3,6)
+  let isSquare = clicked.slice(0,2)
   console.log(isSquare);
   //checks if clicked on square
-  if (isSquare != 'sqr') {
+  if (isSquare != 'sq') {
     console.log('not square');
     return
   }
   console.log(finished);
-  if (finished === true) {
-    return
-  }
+  
   num = clicked[0]
-  placeShip(num)
-  allShipsPlacedCheck(currentlist)
-  placementSwitchBoard(finished)
-  if (finished === true){
-    resetNavBoard()
-    counter++
-    console.log(counter);
-  }
+  renderShipsSetup()
+  
 }
 function updateNavBoard(evt) {
   let clicked = evt.target.id
@@ -166,6 +151,15 @@ function updateNavBoard(evt) {
 }
 function placeShip() {
   currentBoard[num] = currentShip
+  i = 0
+  if(placeDirection === 'Horizontal')
+  while (i < currentShip.length) {
+    currentBoard[num] = currentShip
+    i++
+  }
+  if (placeDirection === 'Vertical') {
+    return
+  }
   currentShip.isPlaced = true
   console.log('Place ship works');
   console.log(currentBoard);
@@ -220,15 +214,15 @@ function createBoard(nation) {
   gameBoardRow.style.backgroundColor = 'blue'
   gameBoardRow.id = nation
   //create 100 squares
-  for(let i = 0; i < 100;i++) {
+  for(let i = 1; i < 101;i++) {
 
   gameBoard1.append(gameBoardRow) 
   document.createElement('div')
   const square = document.createElement('div')
   square.classList.add('square')
-  square.id = i
+  square.id = `sq${i}`
   gameBoardRow.append(square)
   }
 }
-createBoard('USA')
-createBoard('Soviet')
+
+//createBoard('Soviet')
