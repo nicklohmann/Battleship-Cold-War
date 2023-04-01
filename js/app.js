@@ -32,12 +32,13 @@ class Ship {
     this.nation = nation
     this.length = length
     this.name = name
+    this.isPlaced = false
   }
   destroyed() {
     this.isSunk = true
     console.log('sunk');
   }
-  hit(){
+  hit() {
     this.hitCount++
     if (this.hitCount === this.length) {
       this.destroyed()
@@ -54,7 +55,7 @@ const battleshipSoviet = new Ship('Soviet', 4, 'battleship')
 const cruiserSoviet = new Ship('Soviet', 3, 'cruiser')
 const submarineSoviet = new Ship('Soviet', 3, 'submarine')
 const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
-const testShip = new Ship ('USA' ,2, 'test')
+const testShip = new Ship('USA', 2, 'test')
 
 
 /*---------------------------- Variables (state) ----------------------------*/
@@ -62,8 +63,10 @@ let boardUSA = []
 let boardSoviet = []
 let shipListUSA = []
 let shipListSoviet = []
-let testBoard = [0,0]
+let testBoard = []
+let shipListTest = [testShip]
 let currentShip = testShip
+let currentlist = shipListTest
 console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -74,8 +77,8 @@ let horizontalBtn = document.querySelector('#Horizontal')
 
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
-verticalBtn.addEventListener('click' ,verticalOrHorizontal)
-horizontalBtn.addEventListener('click' , verticalOrHorizontal)
+verticalBtn.addEventListener('click', verticalOrHorizontal)
+horizontalBtn.addEventListener('click', verticalOrHorizontal)
 document.addEventListener('click', renderPlaceShip)
 
 
@@ -106,19 +109,31 @@ function renderPlaceShip(evt) {
   let num = sqIdx[0]
   console.log(num);
   placeShip(num)
-  
+  allShipsPlacedcheck(currentlist)
+
 }
 function verticalOrHorizontal() {
   placePieceMessageEl.remove()
   horizontalBtn.remove()
   verticalBtn.remove()
   console.log("button works");
-  
+
 }
 function placeShip(idx) {
   testBoard[idx] = currentShip
-  
+  currentShip.isPlaced = true
+  console.log(testBoard);
+
 }
+function allShipsPlacedcheck(currentlist) {
+  let finished = false
+  finished = currentlist.every(function (onBoard) {
+    return onBoard.isPlaced
+  })
+  //currentlist = shipListSoviet
+  //console.log(currentlist);
+}
+
 
 
 //console.log(placePieceMessageEl.textContent);
