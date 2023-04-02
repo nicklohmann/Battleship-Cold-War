@@ -78,8 +78,8 @@ let finished = false
 let num
 let vertOrHor = 'Vertical'
 let placeDirection
-let vertDirection = 'down'
-let horzDirection = 'LeftToRight'
+let vertDirection
+let horzDirection
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -117,6 +117,7 @@ function renderShipsSetup() {
   if (finished === true) {
     resetNavBoard()
   }
+  console.log(currentBoard);
 }
 function handleClick(evt) {
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
@@ -157,64 +158,98 @@ function updateNavBoard(evt) {
 
 }
 function placeShip(num) {
-  console.log('placing');
+  horzDirection = 'LeftToRight'
+  vertDirection = 'UpToDown'
+  console.log('placing')
+  console.log('num: '+num);
+  console.log('placeDirection: '+ placeDirection);
   num = parseInt(num, 10)
   let i = currentShip.length
   if (isSquareValid(num) === false) {
+    console.log('not Valid');
     return
   }
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
-    console.log('checkingValid');
+    //console.log('checkingValid');
     while (i != 0) {
       currentBoard[num] = currentShip
       num++
       i--
-      console.log('ran');
-      console.log(currentBoard);
+      //console.log('ran');
+      //console.log(currentBoard);
     }
   }
-if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
-  while (i != 0) {
-    currentBoard[num] = currentShip
-    num--
-    i--
-    console.log('running');
-    console.log(currentBoard);
+  if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
+    while (i != 0) {
+      currentBoard[num] = currentShip
+      num--
+      i--
+      //console.log('running');
+      //console.log(currentBoard);
+    }
   }
-}
-if (placeDirection === 'Vertical') {
-  while (i != 0) {
-    currentBoard[num] = currentShip
-    num += 10
-    console.log(num);
-    i--
-    console.log(currentBoard);
+  if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
+    while (i != 0) {
+      console.log('sprinting');
+      currentBoard[num] = currentShip
+      num += 10
+      console.log(num);
+      i--
+      console.log(currentBoard);
+    }
+    if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
+      while (i != 0) {
+        console.log('sprinter');
+        currentBoard[num] = currentShip
+        num += 10
+        console.log(num);
+        i--
+        console.log(currentBoard);
+      }
+    }
+    currentShip.isPlaced = true
+    console.log('Place ship works');
+    //console.log(currentBoard);
   }
-  currentShip.isPlaced = true
-  console.log('Place ship works');
-  //console.log(currentBoard);
-}
 }
 function isSquareValid(num) {
   //horzDirection need update
   //vertDirection need update
   let check = currentShip.length
   newNum = num % 10
-  console.log('newNum:' + newNum);
   if (placeDirection === 'Horizontal' && horzDirection === 'LeftToRight') {
     if ((num < 100) && (newNum + check <= 10)) {
-      console.log('isValid');
-      console.log('horzDir: ' + horzDirection);
+     // console.log('isValid');
+     // console.log('horzDir: ' + horzDirection);
       return true
     }
+  }
     horzDirection = 'RightToLeft'
-    if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft')
+    if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft'){
       if (num < 100 && newNum - check >= 1) {
-        console.log('isValid');
-        console.log('horzDir: ' + horzDirection);
+        //console.log('isValid');
+        //console.log('horzDir: ' + horzDirection);
         return true
       }
-  }
+    }
+    if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
+      console.log('check1');
+      if (num < 100 && num+check*10 <= 100) {
+        console.log('isValid');
+        console.log('vertDir: ' + vertDirection);
+        return true
+      }
+    }
+    vertDirection = 'DownToUp'
+    
+    if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
+      if ((num < 100) && (num - check*10 > 0)) {
+        console.log('isValid');
+        console.log('vertDir: ' + vertDirection);
+        return true
+      }
+    }
+
   return false
 }
 function allShipsPlacedCheck(currentlist) {
