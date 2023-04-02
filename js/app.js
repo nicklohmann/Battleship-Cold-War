@@ -112,10 +112,11 @@ function init(Event) {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 
 }
-function switchShip(currentShip) {
+function switchShip() {
   if (currentShip.isPlaced === true){
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
+    console.log('currentShip: ' +currentShip.name);
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   }
 }
@@ -129,8 +130,8 @@ let overlap  = currentShip.length
       num++
       overlap--
       }
-      console.log('helper' + helperArray);
-      console.log('boolean:' + helperArray.every((el) => el >0));
+     // console.log('helper' + helperArray);
+      //console.log('boolean:' + helperArray.every((el) => el >0));
       if (!helperArray.every((el) => el >0)) {
         console.log('WORKED');
         return true
@@ -143,8 +144,8 @@ let overlap  = currentShip.length
       num--
       overlap--
     }
-    console.log('helper' + helperArray);
-    console.log('boolean:' + helperArray.every((el) => el > 0 ));
+    //console.log('helper' + helperArray);
+    //console.log('boolean:' + helperArray.every((el) => el > 0 ));
     if (!helperArray.every((el) => el >0)) {
       console.log('WORKED');
       return true
@@ -158,8 +159,9 @@ function renderShipsSetup() {
   placeShip(num)
   
   //console.log(currentBoard.some((el) => el = Ship));
-  switchShip(currentShip)
+  switchShip()
   console.log(currentBoard);
+  console.log(currentShip);
   allShipsPlacedCheck(currentlist)
   placementSwitchBoard(finished)
   if (finished === true) {
@@ -182,7 +184,6 @@ function handleClick(evt) {
     //console.log('not square');
     return
   }
-  console.log(finished);
 
   num = clicked.slice(2, 4)
   //console.log('num:' + num);
@@ -213,11 +214,11 @@ function placeShip(num) {
   //console.log('placeDirection: '+ placeDirection);
   num = parseInt(num, 10)
   let i = currentShip.length
-  console.log('square valid check:'+isSquareValid(num));
-  console.log('overlap valid check:'+checkOverlap(num));
-  if (!isSquareValid(num) || checkOverlap(num)) {
+ // console.log('square valid check:'+isSquareValid(num));
+  //console.log('overlap valid check:'+checkOverlap(num));
+  if (isSquareValid(num) === true && checkOverlap(num) === true) {
     console.log('not Valid');
-    placeCurrentShipMessageEl = `Pick valid square for ${currentShip.name}`
+    //placeCurrentShipMessageEl = `Pick valid square for ${currentShip.name}`
     return
   }
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
@@ -267,7 +268,7 @@ function placeShip(num) {
 function isSquareValid(num) {
   //horzDirection need update
   //vertDirection need update
-  checkOverlap(num)
+  //checkOverlap(num)
   let check = currentShip.length
   newNum = num % 10
   if (placeDirection === 'Horizontal' && horzDirection === 'LeftToRight') {
@@ -280,16 +281,16 @@ function isSquareValid(num) {
     horzDirection = 'RightToLeft'
     if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft'){
       if (num < 100 && newNum - check >= 1) {
-        console.log('isValid');
-        console.log('horzDir: ' + horzDirection);
+        //console.log('isValid');
+        //console.log('horzDir: ' + horzDirection);
         return true
       }
     }
     if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
       console.log('check1');
       if (num < 100 && num + check*10 <= 100) {
-        console.log('isValid');
-        console.log('vertDir: ' + vertDirection);
+        //console.log('isValid');
+       // console.log('vertDir: ' + vertDirection);
         return true
       }
     }
@@ -297,8 +298,8 @@ function isSquareValid(num) {
     
     if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
       if (num < 100 && num - check*10 > 0) {
-        console.log('isValid');
-        console.log('vertDir: ' + vertDirection);
+       // console.log('isValid');
+       // console.log('vertDir: ' + vertDirection);
         return true
       }
     }
