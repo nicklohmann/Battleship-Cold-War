@@ -80,6 +80,7 @@ let vertOrHor = 'Vertical'
 let placeDirection
 let vertDirection
 let horzDirection
+let currentShipIndex = 0
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -90,6 +91,7 @@ let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
+let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 document.addEventListener('DOMContentLoaded', init)
@@ -107,11 +109,20 @@ console.log(currentShip);
 //}
 function init(Event) {
   createBoard('USA')
+  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 
+}
+function switchShip(currentShip) {
+  if (currentShip.isPlaced === true){
+    currentShipIndex++
+    currentShip = currentlist[currentShipIndex]
+    placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  }
 }
 function renderShipsSetup() {
   //console.log(num);
   placeShip(num)
+  switchShip(currentShip)
   allShipsPlacedCheck(currentlist)
   placementSwitchBoard(finished)
   if (finished === true) {
@@ -175,8 +186,8 @@ function placeShip(num) {
       currentBoard[num] = currentShip
       num++
       i--
-      //console.log('ran');
-      //console.log(currentBoard);
+      console.log('ran');
+      console.log(currentBoard);
     }
   }
   if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
@@ -184,8 +195,8 @@ function placeShip(num) {
       currentBoard[num] = currentShip
       num--
       i--
-      //console.log('running');
-      //console.log(currentBoard);
+      console.log('running');
+      console.log(currentBoard);
     }
   }
   if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
@@ -197,11 +208,12 @@ function placeShip(num) {
       i--
       console.log(currentBoard);
     }
+  }
     if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
       while (i != 0) {
         console.log('sprinter');
         currentBoard[num] = currentShip
-        num += 10
+        num -= 10
         console.log(num);
         i--
         console.log(currentBoard);
@@ -210,7 +222,6 @@ function placeShip(num) {
     currentShip.isPlaced = true
     console.log('Place ship works');
     //console.log(currentBoard);
-  }
 }
 function isSquareValid(num) {
   //horzDirection need update
@@ -218,23 +229,23 @@ function isSquareValid(num) {
   let check = currentShip.length
   newNum = num % 10
   if (placeDirection === 'Horizontal' && horzDirection === 'LeftToRight') {
-    if ((num < 100) && (newNum + check <= 10)) {
-     // console.log('isValid');
-     // console.log('horzDir: ' + horzDirection);
+    if ((num < 100) && newNum + check <= 10) {
+      console.log('isValid');
+      console.log('horzDir: ' + horzDirection);
       return true
     }
   }
     horzDirection = 'RightToLeft'
     if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft'){
       if (num < 100 && newNum - check >= 1) {
-        //console.log('isValid');
-        //console.log('horzDir: ' + horzDirection);
+        console.log('isValid');
+        console.log('horzDir: ' + horzDirection);
         return true
       }
     }
     if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
       console.log('check1');
-      if (num < 100 && num+check*10 <= 100) {
+      if (num < 100 && num + check*10 <= 100) {
         console.log('isValid');
         console.log('vertDir: ' + vertDirection);
         return true
@@ -243,7 +254,7 @@ function isSquareValid(num) {
     vertDirection = 'DownToUp'
     
     if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
-      if ((num < 100) && (num - check*10 > 0)) {
+      if (num < 100 && num - check*10 > 0) {
         console.log('isValid');
         console.log('vertDir: ' + vertDirection);
         return true
