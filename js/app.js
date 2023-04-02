@@ -224,7 +224,8 @@ function handleClick(evt) {
     return
   }
 
-  num = clicked.slice(2, 4)
+  num = clicked.slice(5)
+  console.log('currentNum:' +num);
   //console.log('num:' + num);
   renderShipsSetup()
 
