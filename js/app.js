@@ -65,12 +65,12 @@ for (let i = 1; i <= 100; i++) {
   boardUSA.push(i)
 }
 let boardSoviet = []
-  
-for (let i = 1; i <= 100; i++){
+
+for (let i = 1; i <= 100; i++) {
   boardSoviet.push(i)
 }
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
-let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet,destroyerSoviet]
+let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
 let currentlist = shipListUSA
 let currentBoard = boardUSA
 let currentShip = shipListUSA[0]
@@ -78,22 +78,24 @@ let finished = false
 let num
 let vertOrHor = 'Vertical'
 let placeDirection
+let vertDirection = 'down'
+let horzDirection = 'LeftToRight'
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
 const board1El = document.querySelector('.board')
-const squareEls = document.getElementsByClassName('.sqr')
+const squareEls = document.getElementsByClassName('.square')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
-document.addEventListener('DOMContentLoaded' ,init)
+document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
 horizontalBtn.addEventListener('click', updateNavBoard)
-gameBoard1.addEventListener('click' , handleClick)
+gameBoard1.addEventListener('click', handleClick)
 
 
 
@@ -112,7 +114,7 @@ function renderShipsSetup() {
   placeShip(num)
   allShipsPlacedCheck(currentlist)
   placementSwitchBoard(finished)
-  if (finished === true){
+  if (finished === true) {
     resetNavBoard()
   }
 }
@@ -120,14 +122,11 @@ function handleClick(evt) {
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
     return
   }
-  if (isSquareValid() === false) {
-    return
-  }
   if (finished === true) {
     return
   }
   const clicked = evt.target.id
-  let isSquare = clicked.slice(0,2)
+  let isSquare = clicked.slice(0, 2)
   console.log(isSquare);
   //checks if clicked on square
   if (isSquare != 'sq') {
@@ -135,15 +134,15 @@ function handleClick(evt) {
     return
   }
   console.log(finished);
-  
-  num = clicked.slice(2,4)
+
+  num = clicked.slice(2, 4)
   console.log('num:' + num);
   renderShipsSetup()
-  
+
 }
 function updateNavBoard(evt) {
   let clicked = evt.target.id
-  if (clicked === 'Vertical'){
+  if (clicked === 'Vertical') {
     placePieceMessageEl.textContent = 'Vertical'
     placeDirection = 'Vertical'
   }
@@ -158,26 +157,65 @@ function updateNavBoard(evt) {
 
 }
 function placeShip(num) {
+  console.log('placing');
+  num = parseInt(num, 10)
   let i = currentShip.length
-    if(placeDirection === 'Horizontal') {
-    while (i!=0) {
+  if (isSquareValid(num) === false) {
+    return
+  }
+  if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
+    console.log('checkingValid');
+    while (i != 0) {
       currentBoard[num] = currentShip
-      
       num++
       i--
+      console.log('ran');
       console.log(currentBoard);
     }
   }
-  //if (placeDirection === 'Vertical') {
-   // return
-  //}
+if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
+  while (i != 0) {
+    currentBoard[num] = currentShip
+    num--
+    i--
+    console.log('running');
+    console.log(currentBoard);
+  }
+}
+if (placeDirection === 'Vertical') {
+  while (i != 0) {
+    currentBoard[num] = currentShip
+    num += 10
+    console.log(num);
+    i--
+    console.log(currentBoard);
+  }
   currentShip.isPlaced = true
   console.log('Place ship works');
   //console.log(currentBoard);
-
 }
-function isSquareValid(){
-  return true
+}
+function isSquareValid(num) {
+  //horzDirection need update
+  //vertDirection need update
+  let check = currentShip.length
+  newNum = num % 10
+  console.log('newNum:' + newNum);
+  if (placeDirection === 'Horizontal' && horzDirection === 'LeftToRight') {
+    if ((num < 100) && (newNum + check <= 10)) {
+      console.log('isValid');
+      console.log('horzDir: ' + horzDirection);
+      return true
+    }
+    horzDirection = 'RightToLeft'
+    if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft')
+      if (num < 100 && newNum - check >= 1) {
+        console.log('isValid');
+        console.log('horzDir: ' + horzDirection);
+        return true
+      }
+  }
+  return false
 }
 function allShipsPlacedCheck(currentlist) {
   finished = currentlist.every(function (onBoard) {
@@ -186,7 +224,7 @@ function allShipsPlacedCheck(currentlist) {
   })
 
   //currentlist = shipListSoviet
-  console.log('All ships Checked: '+ finished);
+  console.log('All ships Checked: ' + finished);
 }
 function placementSwitchBoard(finished) {
   if (finished === false) {
@@ -196,9 +234,9 @@ function placementSwitchBoard(finished) {
   if (currentBoard === boardUSA) {
     currentBoard = boardSoviet
     console.log('board Switched:' + currentBoard);
-    console.log('1st list: '+currentlist);
+    console.log('1st list: ' + currentlist);
     currentlist = shipListSoviet
-    
+
     console.log('list switched: ' + currentlist);
   }
 }
@@ -225,14 +263,14 @@ function createBoard(nation) {
   gameBoardRow.style.backgroundColor = 'blue'
   gameBoardRow.id = nation
   //create 100 squares
-  for(let i = 1; i < 101;i++) {
+  for (let i = 1; i < 101; i++) {
 
-  gameBoard1.append(gameBoardRow) 
-  document.createElement('div')
-  const square = document.createElement('div')
-  square.classList.add('square')
-  square.id = `sq${i}`
-  gameBoardRow.append(square)
+    gameBoard1.append(gameBoardRow)
+    document.createElement('div')
+    const square = document.createElement('div')
+    square.classList.add('square')
+    square.id = `sq${i}`
+    gameBoardRow.append(square)
   }
 }
 
