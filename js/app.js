@@ -82,6 +82,8 @@ let vertDirection = 'UpToDown'
 let horzDirection = 'LeftToRight'
 let currentShipIndex = 0
 let booleanComplete
+let nation
+
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -99,6 +101,7 @@ document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
 horizontalBtn.addEventListener('click', updateNavBoard)
 gameBoard1.addEventListener('click', handleClick)
+gameBoard2.addEventListener('click', handleClick)
 
 
 
@@ -109,7 +112,8 @@ console.log(currentShip);
 //
 //}
 function init(Event) {
-  createBoard('USA')
+  nation = 'USA'
+  createBoard(nation)
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 
 }
@@ -191,13 +195,13 @@ function renderShipsSetup() {
   placeShip(num)
 
   //console.log(currentBoard.some((el) => el = Ship));
-  
+
   allShipsPlacedCheck(currentlist)
   switchShip(finished)
   console.log(currentBoard);
   console.log(currentShip);
   placementSwitchBoard(finished)
-  if (finished === true) {
+  if (finished === true && nation === 'USA') {
     resetNavBoard()
   }
   //console.log(currentBoard);
@@ -210,11 +214,13 @@ function handleClick(evt) {
     return
   }
   const clicked = evt.target.id
-  let isSquare = clicked.slice(0, 2)
+  let isSquare = clicked.slice(0,5)
+  console.log('Square test' + isSquare);
   //console.log(isSquare);
   //checks if clicked on square
-  if (isSquare != 'sq') {
-    //console.log('not square');
+  if (isSquare != `${nation}sq`) {
+
+    console.log('not square');
     return
   }
 
@@ -355,21 +361,24 @@ function placementSwitchBoard(finished) {
   //console.log(currentBoard);
   if (currentBoard === boardUSA) {
     currentBoard = boardSoviet
-    console.log('board Switched:' + currentBoard);
-    console.log('1st list: ' + currentlist);
     currentlist = shipListSoviet
     currentShip = currentlist[0]
+    currentShipIndex = 0
+    console.log('board Switched:' + currentBoard);
     console.log('list switched: ' + currentlist);
-    console.log(currentShip.name);
+    console.log('first Ship:' + currentShip.name);
   }
 }
 function resetNavBoard() {
   //placePieceMessageEl.add()
   //horizontalBtn.add()
   //verticalBtn.add()
-  finished = false
-  placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
+  textContent = 'Choose Vertical or Horizontal'
+  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   console.log('nav reset');
+  finished = false
+  nation = 'SOV'
+  createBoard(nation)
 
 }
 
@@ -381,19 +390,35 @@ function playerTurn() {
 //create Boards
 
 function createBoard(nation) {
-  const gameBoardRow = document.createElement('div')
-  gameBoardRow.classList.add(`game-board`)
-  gameBoardRow.style.backgroundColor = 'blue'
-  gameBoardRow.id = nation
   //create 100 squares
-  for (let i = 1; i < 101; i++) {
-
-    gameBoard1.append(gameBoardRow)
-    document.createElement('div')
-    const square = document.createElement('div')
-    square.classList.add('square')
-    square.id = `sq${i}`
-    gameBoardRow.append(square)
+  if (nation === 'USA') {
+    const gameBoardRow = document.createElement('div')
+    gameBoardRow.classList.add(`game-board`)
+    gameBoardRow.style.backgroundColor = 'blue'
+    gameBoardRow.id = nation
+    for (let i = 1; i < 101; i++) {
+      gameBoard1.append(gameBoardRow)
+      document.createElement('div')
+      const square = document.createElement('div')
+      square.classList.add('square')
+      square.id = `${nation}sq${i}`
+      gameBoardRow.append(square)
+    }
+  }
+  if (nation === 'SOV') {
+    console.log('called');
+    const nextGameBoardRow = document.createElement('div')
+    nextGameBoardRow.classList.add(`game-board`)
+    nextGameBoardRow.style.backgroundColor = 'gold'
+    nextGameBoardRow.id = nation
+    for (let i = 1; i < 101; i++) {
+      gameBoard2.append(nextGameBoardRow)
+      document.createElement('div')
+      const square = document.createElement('div')
+      square.classList.add('square')
+      square.id = `${nation}sq${i}`
+      nextGameBoardRow.append(square)
+    }
   }
 }
 

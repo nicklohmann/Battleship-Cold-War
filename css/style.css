@@ -39,6 +39,11 @@ nav {
   display: flex;
   justify-content: space-between;
 }
+#board2Container {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
 .square {
   width: 20px;
   height: 20px;
