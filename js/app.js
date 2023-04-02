@@ -81,6 +81,7 @@ let placeDirection
 let vertDirection = 'UpToDown'
 let horzDirection = 'LeftToRight'
 let currentShipIndex = 0
+let booleanComplete
 //console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -112,7 +113,11 @@ function init(Event) {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 
 }
-function switchShip() {
+function switchShip(booleanComplete) {
+  if (booleanComplete === true) {
+    console.log('booleanCompleted');
+    return
+  }
   if (currentShip.isPlaced === true) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
@@ -186,10 +191,11 @@ function renderShipsSetup() {
   placeShip(num)
 
   //console.log(currentBoard.some((el) => el = Ship));
-  switchShip()
+  
+  allShipsPlacedCheck(currentlist)
+  switchShip(finished)
   console.log(currentBoard);
   console.log(currentShip);
-  allShipsPlacedCheck(currentlist)
   placementSwitchBoard(finished)
   if (finished === true) {
     resetNavBoard()
@@ -335,7 +341,7 @@ function isSquareValid(num) {
 }
 function allShipsPlacedCheck(currentlist) {
   finished = currentlist.every(function (onBoard) {
-    //console.log(finished);
+    console.log(onBoard.isPlaced);
     return onBoard.isPlaced
   })
 
@@ -352,8 +358,9 @@ function placementSwitchBoard(finished) {
     console.log('board Switched:' + currentBoard);
     console.log('1st list: ' + currentlist);
     currentlist = shipListSoviet
-
+    currentShip = currentlist[0]
     console.log('list switched: ' + currentlist);
+    console.log(currentShip.name);
   }
 }
 function resetNavBoard() {
