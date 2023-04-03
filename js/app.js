@@ -81,7 +81,7 @@ let currentShipIndex = 0
 let booleanSetUpComplete = false
 let USACount = 5
 let SOVCount = 5
-
+let shipHit
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -209,8 +209,8 @@ function handleClick(evt) {
   }
 
   num = clicked.slice(5)
-  if (booleanSetUpComplete === false){
-  renderShipsSetup()
+  if (booleanSetUpComplete === false) {
+    renderShipsSetup()
   }
 
 }
@@ -379,7 +379,7 @@ function sovAttack(evt) {
     console.log('returned')
     return
   }
-  if(nation != 'SOV') {
+  if (nation != 'SOV') {
     console.log('returned')
     return
   }
@@ -397,8 +397,8 @@ function sovAttack(evt) {
     return
   }
   if (boardSoviet[atk] < 0 === false && checkIfPrevAtk(sovMemoryArray, memory) === false) {
-    let shipHit = boardSoviet[atk].name
-    boardSoviet[atk].hitCount++
+    shipHit = boardSoviet[atk].name
+
     placePieceMessageEl.textContent = `Hit!`
     pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
     sovMemoryArray.push(memory)
@@ -423,4 +423,36 @@ function checkWinner() {
 }
 function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
+}
+
+function helperCheckEachShipNameUSA() {
+  if (shipHit.name === 'carrier') {
+    carrierUSA.hit()
+  } else if (shipHit.name === 'battleship') {
+    battleshipUSA.hit()
+  } else if (shipHit.name === 'cruiser') {
+    cruiserUSA.hit()
+  } else if (shipHit.name === 'submarine') {
+    submarineUSA.hit()
+  } else (shipHit.name === 'destroyer') 
+    destroyerUSA.hit()
+  return
+}
+
+function helperCheckEachShipNameSoviet() {
+  if (shipHit.name === 'carrier') {
+    carrierSoviet.hit()
+    return
+  } else if (shipHit.name === 'battleship') {
+    battleshipSoviet.hit()
+    return
+  } else if (shipHit.name === 'cruiser') {
+    cruiserSoviet.hit()
+    return
+  } else if (shipHit.name === 'submarine') {
+    submarineSoviet.hit()
+    return
+  } else (shipHit.name === 'destroyer')
+    destroyerSoviet.hit()
+  return
 }
