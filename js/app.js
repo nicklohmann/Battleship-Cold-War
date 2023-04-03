@@ -90,6 +90,8 @@ let SOVCount = 5
 let shipHit
 let usaTotalHitCount = 0
 let sovTotalHitCount = 0
+const sovMemoryArray = []
+const usaMemoryArray = []
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -385,6 +387,10 @@ function enterGameNav() {
 }
 
 function sovAttack(evt) {
+  checkWinner()
+  if (checkWinner() === true) {
+    return
+  }
   if (!booleanSetUpComplete) {
     console.log('returned')
     return
@@ -394,7 +400,6 @@ function sovAttack(evt) {
     return
   }
   const atkClick = evt.target.id
-  const sovMemoryArray = []
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
@@ -418,10 +423,15 @@ function sovAttack(evt) {
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   sovMemoryArray.push(memory)
   console.log(sovMemoryArray);
+  checkWinner()
   switchTurn()
   return
 }
 function usaAttack(evt) {
+  checkWinner()
+  if (checkWinner() === true) {
+    return
+  }
   if (!booleanSetUpComplete) {
     console.log('returned')
     return
@@ -431,7 +441,6 @@ function usaAttack(evt) {
     return
   }
   const atkClick = evt.target.id
-  const usaMemoryArray = []
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
@@ -454,7 +463,7 @@ function usaAttack(evt) {
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
-  console.log(usaMemoryArray);
+  checkWinner()
   switchTurn()
   return
 }
@@ -475,9 +484,6 @@ function switchTurn() {
   return
 }
 
-function checkWinner() {
-  return
-}
 function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
@@ -518,7 +524,7 @@ function helperCheckEachShipNameSoviet() {
 }
 
 function renderTurns() {
-  console.log('rendering' + nation);
+  //console.log(USACount + SOVCount);
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
     pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
@@ -526,4 +532,23 @@ function renderTurns() {
   if (nation === 'USA') {
     pieceSelectionMessageEl.textContent = `You need to sink ${SOVCount} more ships!`
   }
+}
+function checkWinner() {
+  if (SOVCount === 0) {
+    hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
+    placePieceMessageEl.textContent = `USA WINS!!!`
+    pieceSelectionMessageEl.textContent =``
+    placeCurrentShipMessageEl.textContent = ``
+    return true
+
+  }
+  if (USACount === 0) {
+
+    hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
+    placePieceMessageEl.textContent = `USSR WINS!!!`
+    pieceSelectionMessageEl.textContent =``
+    placeCurrentShipMessageEl.textContent = ``
+    return true
+  }
+  return false
 }
