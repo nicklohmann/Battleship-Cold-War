@@ -5,20 +5,18 @@
 / Create interface screen with a button to select vertical or horizontal 
 / handle player click to place ship onto squares
 /handle logic when player attempts placing ship in invalid location
- —- Handle logic of when placing piece on the edge
- —-- create functions for hit() miss() hitandSunk() or invalid placement
+—- Handle logic of when placing piece on the edge
+—-- create functions for hit() miss() hitandSunk() or invalid placement
 4.create both boards once functionality of the individual squares is correct
 5. Load the game, initialize both boards to be empty, Game state will start with giving the user the option to place their ships with interface created in step 3 above, and then player 2 will after on the same interface
-
-
 6. Both boards will then become blank, unable to see the ships.
 7. Game state will be rendered to the user after each hit attempt
 ***Animations added for these: 
 8.. Handle player click on each board to see if ship is hit
- -miss
- -hit
- -hit and sunk
- -invalid
+-miss
+-hit
+-hit and sunk
+-invalid
 - show only one board at a time, and switch after turn attempt
 - Handle winner when all 5 ships are sunk
 9. Create reset Functionality
@@ -36,7 +34,6 @@ class Ship {
   }
   destroyed() {
     this.isSunk = true
-    console.log('sunk');
   }
   hit() {
     this.hitCount++
@@ -81,12 +78,10 @@ let placeDirection
 let vertDirection = 'UpToDown'
 let horzDirection = 'LeftToRight'
 let currentShipIndex = 0
-let nation
 let booleanSetUpComplete = false
 let USACount = 5
-let SovietCount = 5 
+let SOVCount = 5
 
-//console.log(testShip);
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -99,7 +94,6 @@ let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 const gameBoardRow = document.createElement('div')
 const nextGameBoardRow = document.createElement('div')
-
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 document.addEventListener('DOMContentLoaded', init)
@@ -107,16 +101,15 @@ verticalBtn.addEventListener('click', updateNavBoard)
 horizontalBtn.addEventListener('click', updateNavBoard)
 gameBoard1.addEventListener('click', handleClick)
 gameBoard2.addEventListener('click', handleClick)
-gameBoard1.addEventListener('click' , attack)
-gameBoard2.addEventListener('click', attack)
+gameBoard1.addEventListener('click', sovAttack)
+//gameBoard2.addEventListener('click', attack)
+
+
 
 
 /*-------------------------------- Functions --------------------------------*/
-console.log(currentShip);
-//function initSetUp {
-//
-//}
-//-----------------------------------------------------Set-Up-Phase---------------------------------------------------------//
+
+//---------------------------------------Set-Up-Phase---------------------------------------------------------//
 function init(Event) {
   nation = 'USA'
   createBoard(nation)
@@ -125,13 +118,12 @@ function init(Event) {
 }
 function switchShip(booleanComplete) {
   if (booleanComplete === true) {
-    //console.log('booleanCompleted');
     return
   }
   if (currentShip.isPlaced === true) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
-    //console.log('currentShip: ' + currentShip.name);
+
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   }
 }
@@ -141,14 +133,11 @@ function checkOverlap(num) {
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
     while (overlap != 0) {
       helperArray.push(currentBoard[num])
-      //console.log(currentBoard[num]);
+
       num++
       overlap--
     }
-    // console.log('helper' + helperArray);
-    //console.log('boolean:' + helperArray.every((el) => el >0));
     if (!helperArray.every((el) => el > 0)) {
-     // console.log('WORKED');
       return true
     }
     return false
@@ -159,10 +148,8 @@ function checkOverlap(num) {
       num--
       overlap--
     }
-    //console.log('helper' + helperArray);
-    //console.log('boolean:' + helperArray.every((el) => el > 0 ));
     if (!helperArray.every((el) => el > 0)) {
-      //console.log('WORKED');
+
       return true
     }
     return false
@@ -174,7 +161,6 @@ function checkOverlap(num) {
       overlap--
     }
     if (!helperArray.every((el) => el > 0)) {
-      //console.log('WORKED');
       return true
     }
     return false
@@ -186,23 +172,19 @@ function checkOverlap(num) {
       overlap--
     }
     if (!helperArray.every((el) => el > 0)) {
-      //console.log('WORKED');
       return true
     }
     return false
   }
   return false
 }
+
+
+
 function renderShipsSetup() {
-  //console.log(num);
   placeShip(num)
-
-  //console.log(currentBoard.some((el) => el = Ship));
-
   allShipsPlacedCheck(currentlist)
   switchShip(finished)
-  //console.log(currentBoard)
-  //console.log(currentShip)
   placementSwitchBoard(finished)
   if (finished === true && nation === 'USA') {
     resetNavBoard()
@@ -212,7 +194,6 @@ function renderShipsSetup() {
   if (booleanSetUpComplete === true) {
     enterGameNav()
   }
-  //console.log(currentBoard);
 }
 function handleClick(evt) {
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
@@ -222,20 +203,13 @@ function handleClick(evt) {
     return
   }
   const clicked = evt.target.id
-  let isSquare = clicked.slice(0,5)
-  //console.log('Square test' + isSquare);
-  //console.log(isSquare);
-  //checks if clicked on square
+  let isSquare = clicked.slice(0, 5)
   if (isSquare != `${nation}sq`) {
-
-    //console.log('not square');
     return
   }
 
   num = clicked.slice(5)
-  //console.log('currentNum:' +num);
-  //console.log('num:' + num);
-  if (booleanSetUpComplete === false){ 
+  if (booleanSetUpComplete === false){
   renderShipsSetup()
   }
 
@@ -250,35 +224,21 @@ function updateNavBoard(evt) {
     placePieceMessageEl.textContent = 'Horizontal'
     placeDirection = 'Horizontal'
   }
-  //horizontalBtn.remove()
-  //verticalBtn.remove()
-
-  //console.log("button works");
-
 }
 function placeShip(num) {
   horzDirection = 'LeftToRight'
   vertDirection = 'UpToDown'
-  //console.log('placing')
-  //console.log('num: '+num);
-  //console.log('placeDirection: '+ placeDirection);
   num = parseInt(num, 10)
   let i = currentShip.length
-  // console.log('square valid check:'+isSquareValid(num));
-  //console.log('overlap valid check:'+checkOverlap(num));
   if (isSquareValid(num) === true && checkOverlap(num) === true) {
-    //console.log('not Valid');
     placeCurrentShipMessageEl.textContent = `Pick valid square for ${currentShip.name}`
     return
   }
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
-    //console.log('checkingValid');
     while (i != 0) {
       currentBoard[num] = currentShip
       num++
       i--
-      //console.log('ran');
-      //console.log(currentBoard);
     }
   }
   if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
@@ -286,62 +246,41 @@ function placeShip(num) {
       currentBoard[num] = currentShip
       num--
       i--
-      //console.log('running');
-      //console.log(currentBoard);
     }
   }
   if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
     while (i != 0) {
-      //console.log('sprinting');
       currentBoard[num] = currentShip
       num += 10
-     // console.log(num);
       i--
-     // console.log(currentBoard);
     }
   }
   if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
     while (i != 0) {
-      //console.log('sprinter');
       currentBoard[num] = currentShip
       num -= 10
-      //console.log(num);
       i--
-     // console.log(currentBoard);
     }
   }
- // console.log(currentBoard);
   currentShip.isPlaced = true
-  console.log('board: '+ currentBoard);
-  //console.log('Place ship works');
-  //console.log(currentBoard);
+  console.log(currentBoard);
 }
 function isSquareValid(num) {
-  //horzDirection need update
-  //vertDirection need update
-  //checkOverlap(num)
   let check = currentShip.length
   newNum = num % 10
   if (placeDirection === 'Horizontal' && horzDirection === 'LeftToRight') {
     if ((num < 100) && newNum + check <= 10) {
-      //console.log('isValid');
-      //console.log('horzDir: ' + horzDirection);
       return true
     }
   }
   horzDirection = 'RightToLeft'
   if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
     if (num < 100 && newNum - check >= 1) {
-      //console.log('isValid');
-      //console.log('horzDir: ' + horzDirection);
       return true
     }
   }
   if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
-    //console.log('check1');
     if (num < 100 && num + check * 10 <= 100) {
-      //console.log('isValid');
-      // console.log('vertDir: ' + vertDirection);
       return true
     }
   }
@@ -349,8 +288,6 @@ function isSquareValid(num) {
 
   if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
     if (num < 100 && num - check * 10 > 0) {
-      // console.log('isValid');
-      // console.log('vertDir: ' + vertDirection);
       return true
     }
   }
@@ -359,39 +296,33 @@ function isSquareValid(num) {
 }
 function allShipsPlacedCheck(currentlist) {
   finished = currentlist.every(function (onBoard) {
-    //console.log(onBoard.isPlaced);
     return onBoard.isPlaced
   })
 
   //currentlist = shipListSoviet
-  //console.log('All ships Checked: ' + finished);
 }
 function placementSwitchBoard(finished) {
   if (finished === false) {
     return
   }
-  //console.log(currentBoard);
   if (currentBoard === boardUSA) {
     currentBoard = boardSoviet
     currentlist = shipListSoviet
     currentShip = currentlist[0]
     currentShipIndex = 0
-   // console.log('board Switched:' + currentBoard);
-   // console.log('list switched: ' + currentlist);
-   // console.log('first Ship:' + currentShip.name);
   }
 }
 function resetNavBoard() {
-  //placePieceMessageEl.add()
-  //horizontalBtn.add()
-  //verticalBtn.add()
   textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
-  //console.log('nav reset');
   finished = false
   nation = 'SOV'
   createBoard(nation)
 
+}
+
+function playerTurn() {
+  return
 }
 //Need logic for if valid square is clicked for placement
 
@@ -400,7 +331,6 @@ function resetNavBoard() {
 function createBoard(nation) {
   //create 100 squares
   if (nation === 'USA') {
-    
     gameBoardRow.classList.add(`game-board`)
     gameBoardRow.style.backgroundColor = 'blue'
     gameBoardRow.id = nation
@@ -414,8 +344,6 @@ function createBoard(nation) {
     }
   }
   if (nation === 'SOV') {
-    //console.log('called');
-    
     nextGameBoardRow.classList.add(`game-board`)
     nextGameBoardRow.style.backgroundColor = 'gold'
     nextGameBoardRow.id = nation
@@ -429,52 +357,64 @@ function createBoard(nation) {
     }
   }
 }
-
 function checkEndOfSetup() {
   if (destroyerSoviet.isPlaced === true) {
     booleanSetUpComplete = true
   }
 }
 //-------------------------------Gameplay-Phase-------------------------------------//
+
 function enterGameNav() {
-  console.log('entered');
-  nation = 'USA'
+  console.log('GameNav');
+  nation = 'SOV'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   horizontalBtn.remove()
   verticalBtn.remove()
-  pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
+  pieceSelectionMessageEl.textContent = `You need to sink ${SOVCount} more ships!`
   return
 }
 
-function attack(evt) {
-  if(!booleanSetUpComplete) {
-  return
+function sovAttack(evt) {
+  if (!booleanSetUpComplete) {
+    console.log('returned')
+    return
   }
-  const usaMemoryArray = []
-  const sovietMemoryArray = []
+  if(nation != 'SOV') {
+    console.log('returned')
+    return
+  }
   const atkClick = evt.target.id
-  let enemySquare = atkClick.slice(0,5)
+  const sovMemoryArray = []
+  let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
-  if(nation === 'USA' && enemySquare === 'SOVsq') {
-    console.log(boardSoviet[atk]<0)
-    console.log(boardSoviet[atk].name);
-    function checkIfPrevAtk(arr, val) {
-      return arr.some((arrVal) => val === arrVal);
-    }
-    if (checkIfPrevAtk(usaMemoryArray, atk) === true) {
-      createAtkErrorMessage()
-    }
+  let memory = atk
+  if (checkIfPrevAtk(sovMemoryArray, memory) === true) {
+    console.log('returned')
+    createAtkErrorMessage()
+    return
   }
-    if (boardSoviet[atk] < 0 === false && checkIfPrevAtk(usaMemoryArray, atk) === false) {
-      usaMemoryArray.push(atk)
-      let shipHit = boardSoviet[atk].name
-      boardSoviet[atk].hitCount++
-      placePieceMessageEl.textContent = `Hit!`
-      pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
+  if (enemySquare != 'USAsq') {
+    return
+  }
+  if (boardSoviet[atk] < 0 === false && checkIfPrevAtk(sovMemoryArray, memory) === false) {
+    let shipHit = boardSoviet[atk].name
+    boardSoviet[atk].hitCount++
+    placePieceMessageEl.textContent = `Hit!`
+    pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
+    sovMemoryArray.push(memory)
+    console.log(sovMemoryArray);
 
-    }
+  }
 }
-function playerTurn() {
+function checkIfPrevAtk(arr, val) {
+  return arr.some((arrVal) => val === arrVal);
+}
+function switchTurn() {
+  if (nation === 'SOV') {
+    nation === 'USA'
+    return
+  }
+  nation === 'SOV'
   return
 }
 
