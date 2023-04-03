@@ -63,14 +63,10 @@ const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
 const testShip = new Ship('USA', 1, 'test')
 const testShip2 = new Ship('USA', 1, 'test')
 /*---------------------------- Variables (state) ----------------------------*/
+
 let boardUSA = []
-for (let i = 1; i <= 100; i++) {
-  boardUSA.push(i)
-}
 let boardSoviet = []
-for (let i = 1; i <= 100; i++) {
-  boardSoviet.push(i)
-}
+
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
 let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
 let currentlist
@@ -120,6 +116,8 @@ resetBtn.addEventListener('click' , reset)
 createBoard(nation)
 function init(Event) {
   nation = 'USA'
+  initBoards()
+  console.log(boardUSA);
   console.log('boardcreatFromInit');
   horizontalBtn.style.visibility ='visible';
   verticalBtn.style.visibility ='visible';
@@ -130,6 +128,14 @@ function init(Event) {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   
   
+}
+function initBoards() {
+  for (let i = 1; i <= 100; i++) {
+    boardUSA.push(i)
+  }
+  for (let i = 1; i <= 100; i++) {
+    boardSoviet.push(i)
+  }
 }
 function switchShip(booleanComplete) {
   if (booleanComplete === true) {
@@ -515,12 +521,10 @@ function checkWinner() {
 }
 
 function reset(evt) {
-  while (gameBoard2.lastElementChild) {
-    gameBoard2.removeChild(gameBoard2.lastElementChild)
-  }
-  while (gameBoard1.lastElementChild) {
-    gameBoard1.removeChild(gameBoard1.lastElementChild)
-  }
   nation = 'USA'
+  gameBoard2.style.visibility = 'hidden'
+  boardSoviet = []
+  boardUSA = []
+
   init()
 }
