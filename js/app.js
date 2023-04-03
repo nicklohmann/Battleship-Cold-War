@@ -63,12 +63,11 @@ const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
 const testShip = new Ship('USA', 1, 'test')
 const testShip2 = new Ship('USA', 1, 'test')
 /*---------------------------- Variables (state) ----------------------------*/
-
 let boardUSA = []
 let boardSoviet = []
-
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
 let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
+let allShipsList  = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA, carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
 let currentlist
 let currentBoard
 let currentShip
@@ -84,6 +83,7 @@ let booleanSetUpComplete = false
 let USACount = 5
 let SOVCount = 5
 let shipHit
+let boardCounter = 0
 const sovMemoryArray = []
 const usaMemoryArray = []
 /*------------------------ Cached Element References ------------------------*/
@@ -118,14 +118,16 @@ function init(Event) {
   nation = 'USA'
   initBoards()
   console.log(boardUSA);
-  console.log('boardcreatFromInit');
   horizontalBtn.style.visibility ='visible';
   verticalBtn.style.visibility ='visible';
+  currentShipIndex = 0
   currentlist = shipListUSA
   currentBoard = boardUSA
   currentShip = shipListUSA[0]
+  console.log(currentShip);
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  hitMissMessageEl.textContent = ''
   
   
 }
@@ -144,6 +146,7 @@ function switchShip(booleanComplete) {
   if (currentShip.isPlaced === true) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
+    console.log(currentShip.name);
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   }
 }
@@ -211,9 +214,11 @@ function renderShipsSetup() {
 }
 function handleClick(evt) {
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
+    console.log('returned');
     return
   }
   if (finished === true) {
+    console.log('returned');
     return
   }
   const clicked = evt.target.id
@@ -321,12 +326,16 @@ function placementSwitchBoard(finished) {
   }
 }
 function resetNavBoard() {
-  textContent = 'Choose Vertical or Horizontal'
+  //textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   finished = false
   nation = 'SOV'
-  console.log('creating wrong spot');
-  createBoard(nation)
+  console.log('creating wrong spot')
+  if (boardCounter === 0) {
+    createBoard(nation)
+    boardCounter++
+  }
+  gameBoard2.style.visibility = 'visible'
 
 }
 function playerTurn() {
@@ -525,6 +534,16 @@ function reset(evt) {
   gameBoard2.style.visibility = 'hidden'
   boardSoviet = []
   boardUSA = []
-
+  finished = false;
+  booleanSetUpComplete = false
+  resetShips()
   init()
+}
+function resetShips() {
+  allShipsList.forEach(element => {
+    element.hitCount = 0;
+    element.isPlaced = false
+    element.isSunk = false
+  });
+  console.log(allShipsList);
 }
