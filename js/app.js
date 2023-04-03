@@ -60,15 +60,12 @@ const submarineSoviet = new Ship('Soviet', 3, 'submarine')
 const destroyerSoviet = new Ship('Soviet', 2, 'destroyer')
 const testShip = new Ship('USA', 1, 'test')
 const testShip2 = new Ship('USA', 1, 'test')
-
-
 /*---------------------------- Variables (state) ----------------------------*/
 let boardUSA = []
 for (let i = 1; i <= 100; i++) {
   boardUSA.push(i)
 }
 let boardSoviet = []
-
 for (let i = 1; i <= 100; i++) {
   boardSoviet.push(i)
 }
@@ -105,7 +102,6 @@ let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 const gameBoardRow = document.createElement('div')
 const nextGameBoardRow = document.createElement('div')
-
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 document.addEventListener('DOMContentLoaded', init)
@@ -115,10 +111,6 @@ gameBoard1.addEventListener('click', handleClick)
 gameBoard2.addEventListener('click', handleClick)
 gameBoard1.addEventListener('click', sovAttack)
 gameBoard2.addEventListener('click', usaAttack)
-
-
-
-
 /*-------------------------------- Functions --------------------------------*/
 
 //---------------------------------------Set-Up-Phase---------------------------------------------------------//
@@ -126,7 +118,6 @@ function init(Event) {
   nation = 'USA'
   createBoard(nation)
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
-
 }
 function switchShip(booleanComplete) {
   if (booleanComplete === true) {
@@ -135,7 +126,6 @@ function switchShip(booleanComplete) {
   if (currentShip.isPlaced === true) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
-
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   }
 }
@@ -145,7 +135,6 @@ function checkOverlap(num) {
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
     while (overlap != 0) {
       helperArray.push(currentBoard[num])
-
       num++
       overlap--
     }
@@ -161,7 +150,6 @@ function checkOverlap(num) {
       overlap--
     }
     if (!helperArray.every((el) => el > 0)) {
-
       return true
     }
     return false
@@ -190,9 +178,6 @@ function checkOverlap(num) {
   }
   return false
 }
-
-
-
 function renderShipsSetup() {
   placeShip(num)
   allShipsPlacedCheck(currentlist)
@@ -202,7 +187,6 @@ function renderShipsSetup() {
     resetNavBoard()
   }
   checkEndOfSetup()
-  //console.log('answer?: ' + booleanSetUpComplete);
   if (booleanSetUpComplete === true) {
     enterGameNav()
   }
@@ -219,12 +203,10 @@ function handleClick(evt) {
   if (isSquare != `${nation}sq`) {
     return
   }
-
   num = clicked.slice(5)
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
   }
-
 }
 function updateNavBoard(evt) {
   let clicked = evt.target.id
@@ -297,21 +279,17 @@ function isSquareValid(num) {
     }
   }
   vertDirection = 'DownToUp'
-
   if (placeDirection === 'Vertical' && vertDirection === 'DownToUp') {
     if (num < 100 && num - check * 10 > 0) {
       return true
     }
   }
-
   return false
 }
 function allShipsPlacedCheck(currentlist) {
   finished = currentlist.every(function (onBoard) {
     return onBoard.isPlaced
   })
-
-  //currentlist = shipListSoviet
 }
 function placementSwitchBoard(finished) {
   if (finished === false) {
@@ -332,14 +310,9 @@ function resetNavBoard() {
   createBoard(nation)
 
 }
-
 function playerTurn() {
   return
 }
-//Need logic for if valid square is clicked for placement
-
-//create Boards
-
 function createBoard(nation) {
   //create 100 squares
   if (nation === 'USA') {
@@ -375,9 +348,7 @@ function checkEndOfSetup() {
   }
 }
 //-------------------------------Gameplay-Phase-------------------------------------//
-
 function enterGameNav() {
-  console.log('GameNav');
   nation = 'USSR'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   horizontalBtn.remove()
@@ -385,18 +356,15 @@ function enterGameNav() {
   pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
   return
 }
-
 function sovAttack(evt) {
   checkWinner()
   if (checkWinner() === true) {
     return
   }
   if (!booleanSetUpComplete) {
-    console.log('returned')
     return
   }
   if (nation != 'USSR') {
-    console.log('returned')
     return
   }
   const atkClick = evt.target.id
@@ -404,7 +372,6 @@ function sovAttack(evt) {
   let atk = atkClick.slice(5)
   let memory = atk
   if (checkIfPrevAtk(sovMemoryArray, memory) === true) {
-    console.log('returned')
     createAtkErrorMessage()
     return
   }
@@ -417,12 +384,10 @@ function sovAttack(evt) {
     switchTurn()
     return
   }
-  console.log(shipHit);
   helperCheckEachShipNameUSA(shipHit)
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   sovMemoryArray.push(memory)
-  console.log(sovMemoryArray);
   checkWinner()
   switchTurn()
   return
@@ -433,11 +398,9 @@ function usaAttack(evt) {
     return
   }
   if (!booleanSetUpComplete) {
-    console.log('returned')
     return
   }
   if (nation != 'USA') {
-    console.log('returned')
     return
   }
   const atkClick = evt.target.id
@@ -445,7 +408,6 @@ function usaAttack(evt) {
   let atk = atkClick.slice(5)
   let memory = atk
   if (checkIfPrevAtk(usaMemoryArray, memory) === true) {
-    console.log('returned')
     createAtkErrorMessage()
     return
   }
@@ -458,7 +420,6 @@ function usaAttack(evt) {
     switchTurn()
     return
   }
-  console.log(shipHit);
   helperCheckEachShipNameSoviet(shipHit)
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
@@ -467,13 +428,10 @@ function usaAttack(evt) {
   switchTurn()
   return
 }
-
-
 function checkIfPrevAtk(arr, val) {
   return arr.some((arrVal) => val === arrVal);
 }
 function switchTurn() {
-  console.log('switching');
   if (nation === 'USSR') {
     nation = 'USA'
     renderTurns()
@@ -483,11 +441,9 @@ function switchTurn() {
   renderTurns()
   return
 }
-
 function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
-
 function helperCheckEachShipNameUSA() {
   if (shipHit === 'carrier') {
     carrierUSA.hit()
@@ -503,7 +459,6 @@ function helperCheckEachShipNameUSA() {
   else
     return
 }
-
 function helperCheckEachShipNameSoviet() {
   if (shipHit === 'carrier') {
     carrierSoviet.hit()
@@ -522,9 +477,7 @@ function helperCheckEachShipNameSoviet() {
   } else
     return
 }
-
 function renderTurns() {
-  //console.log(USACount + SOVCount);
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
     pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
@@ -537,16 +490,14 @@ function checkWinner() {
   if (SOVCount === 0) {
     hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
     placePieceMessageEl.textContent = `USA WINS!!!`
-    pieceSelectionMessageEl.textContent =``
+    pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``
     return true
-
   }
   if (USACount === 0) {
-
     hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
     placePieceMessageEl.textContent = `USSR WINS!!!`
-    pieceSelectionMessageEl.textContent =``
+    pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``
     return true
   }
