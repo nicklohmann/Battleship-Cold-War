@@ -36,9 +36,11 @@ class Ship {
     this.isSunk = true
     if (this.nation === 'USA') {
       USACount--
+      checkWinner()
     }
     if (this.nation === 'Soviet') {
       SOVCount--
+      checkWinner()
     }
   }
   hit() {
@@ -71,11 +73,12 @@ for (let i = 1; i <= 100; i++) {
 }
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
 let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
-let currentlist = shipListUSA
-let currentBoard = boardUSA
-let currentShip = shipListUSA[0]
+let currentlist
+let currentBoard
+let currentShip
 let finished = false
 let num
+let nation = 'USA'
 let vertOrHor = 'Vertical'
 let placeDirection
 let vertDirection = 'UpToDown'
@@ -85,8 +88,6 @@ let booleanSetUpComplete = false
 let USACount = 5
 let SOVCount = 5
 let shipHit
-let usaTotalHitCount = 0
-let sovTotalHitCount = 0
 const sovMemoryArray = []
 const usaMemoryArray = []
 /*------------------------ Cached Element References ------------------------*/
@@ -97,6 +98,7 @@ const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('.square')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
+let resetBtn = document.querySelector('#Reset')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
@@ -111,13 +113,23 @@ gameBoard1.addEventListener('click', handleClick)
 gameBoard2.addEventListener('click', handleClick)
 gameBoard1.addEventListener('click', sovAttack)
 gameBoard2.addEventListener('click', usaAttack)
+resetBtn.addEventListener('click' , reset)
 /*-------------------------------- Functions --------------------------------*/
 
 //---------------------------------------Set-Up-Phase---------------------------------------------------------//
+createBoard(nation)
 function init(Event) {
   nation = 'USA'
-  createBoard(nation)
+  console.log('boardcreatFromInit');
+  horizontalBtn.style.visibility ='visible';
+  verticalBtn.style.visibility ='visible';
+  currentlist = shipListUSA
+  currentBoard = boardUSA
+  currentShip = shipListUSA[0]
+  placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  
+  
 }
 function switchShip(booleanComplete) {
   if (booleanComplete === true) {
@@ -307,6 +319,7 @@ function resetNavBoard() {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   finished = false
   nation = 'SOV'
+  console.log('creating wrong spot');
   createBoard(nation)
 
 }
@@ -351,13 +364,12 @@ function checkEndOfSetup() {
 function enterGameNav() {
   nation = 'USSR'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
-  horizontalBtn.remove()
-  verticalBtn.remove()
+  horizontalBtn.style.visibility ='hidden';
+  verticalBtn.style.visibility ='hidden';
   pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
   return
 }
 function sovAttack(evt) {
-  checkWinner()
   if (checkWinner() === true) {
     return
   }
@@ -393,7 +405,6 @@ function sovAttack(evt) {
   return
 }
 function usaAttack(evt) {
-  checkWinner()
   if (checkWinner() === true) {
     return
   }
@@ -424,7 +435,6 @@ function usaAttack(evt) {
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
-  checkWinner()
   switchTurn()
   return
 }
@@ -502,4 +512,15 @@ function checkWinner() {
     return true
   }
   return false
+}
+
+function reset(evt) {
+  while (gameBoard2.lastElementChild) {
+    gameBoard2.removeChild(gameBoard2.lastElementChild)
+  }
+  while (gameBoard1.lastElementChild) {
+    gameBoard1.removeChild(gameBoard1.lastElementChild)
+  }
+  nation = 'USA'
+  init()
 }
