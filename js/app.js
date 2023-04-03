@@ -112,7 +112,7 @@ horizontalBtn.addEventListener('click', updateNavBoard)
 gameBoard1.addEventListener('click', handleClick)
 gameBoard2.addEventListener('click', handleClick)
 gameBoard1.addEventListener('click', sovAttack)
-//gameBoard2.addEventListener('click', attack)
+gameBoard2.addEventListener('click', usaAttack)
 
 
 
@@ -406,7 +406,7 @@ function sovAttack(evt) {
   if (enemySquare != 'USAsq') {
     return
   }
-  shipHit = boardSoviet[atk].name
+  shipHit = boardUSA[atk].name
   if (shipHit === undefined) {
     hitMissMessageEl.textContent = `Miss!`
     switchTurn()
@@ -421,16 +421,56 @@ function sovAttack(evt) {
   switchTurn()
   return
 }
+function usaAttack(evt) {
+  if (!booleanSetUpComplete) {
+    console.log('returned')
+    return
+  }
+  if (nation != 'USA') {
+    console.log('returned')
+    return
+  }
+  const atkClick = evt.target.id
+  const usaMemoryArray = []
+  let enemySquare = atkClick.slice(0, 5)
+  let atk = atkClick.slice(5)
+  let memory = atk
+  if (checkIfPrevAtk(usaMemoryArray, memory) === true) {
+    console.log('returned')
+    createAtkErrorMessage()
+    return
+  }
+  if (enemySquare != 'SOVsq') {
+    return
+  }
+  shipHit = boardSoviet[atk].name
+  if (shipHit === undefined) {
+    hitMissMessageEl.textContent = `Miss!`
+    switchTurn()
+    return
+  }
+  console.log(shipHit);
+  helperCheckEachShipNameSoviet(shipHit)
+  hitMissMessageEl.textContent = `Hit!`
+  pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
+  usaMemoryArray.push(memory)
+  console.log(usaMemoryArray);
+  switchTurn()
+  return
+}
+
+
 function checkIfPrevAtk(arr, val) {
   return arr.some((arrVal) => val === arrVal);
 }
 function switchTurn() {
+  console.log('switching');
   if (nation === 'USSR') {
-    nation === 'USA'
+    nation = 'USA'
     renderTurns()
     return
   }
-  nation === 'USSR'
+  nation = 'USSR'
   renderTurns()
   return
 }
@@ -478,6 +518,7 @@ function helperCheckEachShipNameSoviet() {
 }
 
 function renderTurns() {
+  console.log('rendering' + nation);
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
     pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
