@@ -82,6 +82,8 @@ let booleanSetUpComplete = false
 let USACount = 5
 let SOVCount = 5
 let shipHit
+let usaTotalHitCount = 0
+let sovTotalHitCount = 0
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -396,15 +398,22 @@ function sovAttack(evt) {
   if (enemySquare != 'USAsq') {
     return
   }
-  if (boardSoviet[atk] < 0 === false && checkIfPrevAtk(sovMemoryArray, memory) === false) {
-    shipHit = boardSoviet[atk].name
-
+  shipHit = boardSoviet[atk].name
+  if (shipHit === undefined) {
+    placePieceMessageEl.textContent = `Miss!`
+    switchTurn()
+    return
+  }
+    console.log(shipHit);
+    helperCheckEachShipNameUSA(shipHit)
+    usaTotalHitCount++
     placePieceMessageEl.textContent = `Hit!`
     pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
     sovMemoryArray.push(memory)
     console.log(sovMemoryArray);
-
-  }
+    console.log('usaTotal: ' + usaTotalHitCount);
+    switchTurn()
+    return
 }
 function checkIfPrevAtk(arr, val) {
   return arr.some((arrVal) => val === arrVal);
@@ -426,33 +435,36 @@ function createAtkErrorMessage() {
 }
 
 function helperCheckEachShipNameUSA() {
-  if (shipHit.name === 'carrier') {
+  if (shipHit === 'carrier') {
     carrierUSA.hit()
-  } else if (shipHit.name === 'battleship') {
+  } else if (shipHit === 'battleship') {
     battleshipUSA.hit()
-  } else if (shipHit.name === 'cruiser') {
+  } else if (shipHit=== 'cruiser') {
     cruiserUSA.hit()
-  } else if (shipHit.name === 'submarine') {
+  } else if (shipHit === 'submarine') {
     submarineUSA.hit()
-  } else (shipHit.name === 'destroyer') 
+  } else if (shipHit === 'destroyer') {
     destroyerUSA.hit()
+  }
+  else
   return
 }
 
 function helperCheckEachShipNameSoviet() {
-  if (shipHit.name === 'carrier') {
+  if (shipHit === 'carrier') {
     carrierSoviet.hit()
     return
-  } else if (shipHit.name === 'battleship') {
+  } else if (shipHit === 'battleship') {
     battleshipSoviet.hit()
     return
-  } else if (shipHit.name === 'cruiser') {
+  } else if (shipHit=== 'cruiser') {
     cruiserSoviet.hit()
     return
-  } else if (shipHit.name === 'submarine') {
+  } else if (shipHit === 'submarine') {
     submarineSoviet.hit()
     return
-  } else (shipHit.name === 'destroyer')
+  } else if (shipHit === 'destroyer') {
     destroyerSoviet.hit()
+  } else 
   return
 }
