@@ -1,27 +1,3 @@
-/* Pseudocode
-1. Create ship objects to place in the Game
-2. Store cached element references
-3. Create 2 squares to help create battleship game functionality
-/ Create interface screen with a button to select vertical or horizontal 
-/ handle player click to place ship onto squares
-/handle logic when player attempts placing ship in invalid location
-—- Handle logic of when placing piece on the edge
-—-- create functions for hit() miss() hitandSunk() or invalid placement
-4.create both boards once functionality of the individual squares is correct
-5. Load the game, initialize both boards to be empty, Game state will start with giving the user the option to place their ships with interface created in step 3 above, and then player 2 will after on the same interface
-6. Both boards will then become blank, unable to see the ships.
-7. Game state will be rendered to the user after each hit attempt
-***Animations added for these: 
-8.. Handle player click on each board to see if ship is hit
--miss
--hit
--hit and sunk
--invalid
-- show only one board at a time, and switch after turn attempt
-- Handle winner when all 5 ships are sunk
-9. Create reset Functionality
-10. Add Css styling to project
- */
 /*-------------------------------- Constants --------------------------------*/
 class Ship {
   constructor(nation, length, name) {
@@ -67,7 +43,7 @@ let boardUSA = []
 let boardSoviet = []
 let shipListUSA = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA]
 let shipListSoviet = [carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
-let allShipsList  = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA, carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
+let allShipsList = [carrierUSA, battleshipUSA, cruiserUSA, submarineUSA, destroyerUSA, carrierSoviet, battleshipSoviet, cruiserSoviet, submarineSoviet, destroyerSoviet]
 let currentlist
 let currentBoard
 let currentShip
@@ -101,7 +77,6 @@ let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 const gameBoardRow = document.createElement('div')
 const nextGameBoardRow = document.createElement('div')
 /*----------------------------- Event Listeners -----------------------------*/
-//squareEls.addEventListener('click' , placeShip)
 document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
 horizontalBtn.addEventListener('click', updateNavBoard)
@@ -109,27 +84,22 @@ gameBoard1.addEventListener('click', handleClick)
 gameBoard2.addEventListener('click', handleClick)
 gameBoard1.addEventListener('click', sovAttack)
 gameBoard2.addEventListener('click', usaAttack)
-resetBtn.addEventListener('click' , reset)
-/*-------------------------------- Functions --------------------------------*/
-
-//---------------------------------------Set-Up-Phase---------------------------------------------------------//
+resetBtn.addEventListener('click', reset)
+/*-------------------------------- Functions -------------------------------*/
+//---------------------------------------Set-Up-Phase-------------------------------//
 createBoard(nation)
 function init(Event) {
   nation = 'USA'
   initBoards()
-  console.log(boardUSA);
-  horizontalBtn.style.visibility ='visible';
-  verticalBtn.style.visibility ='visible';
+  horizontalBtn.style.visibility = 'visible';
+  verticalBtn.style.visibility = 'visible';
   currentShipIndex = 0
   currentlist = shipListUSA
   currentBoard = boardUSA
   currentShip = shipListUSA[0]
-  console.log(currentShip);
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   hitMissMessageEl.textContent = ''
-  
-  
 }
 function initBoards() {
   for (let i = 1; i <= 100; i++) {
@@ -146,7 +116,6 @@ function switchShip(booleanComplete) {
   if (currentShip.isPlaced === true) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
-    console.log(currentShip.name);
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   }
 }
@@ -214,11 +183,9 @@ function renderShipsSetup() {
 }
 function handleClick(evt) {
   if (placePieceMessageEl.textContent === 'Choose Vertical or Horizontal') {
-    console.log('returned');
     return
   }
   if (finished === true) {
-    console.log('returned');
     return
   }
   const clicked = evt.target.id
@@ -280,7 +247,6 @@ function placeShip(num) {
     }
   }
   currentShip.isPlaced = true
-  console.log(currentBoard);
 }
 function isSquareValid(num) {
   let check = currentShip.length
@@ -326,11 +292,10 @@ function placementSwitchBoard(finished) {
   }
 }
 function resetNavBoard() {
-  //textContent = 'Choose Vertical or Horizontal'
+  placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   finished = false
   nation = 'SOV'
-  console.log('creating wrong spot')
   if (boardCounter === 0) {
     createBoard(nation)
     boardCounter++
@@ -342,7 +307,6 @@ function playerTurn() {
   return
 }
 function createBoard(nation) {
-  //create 100 squares
   if (nation === 'USA') {
     gameBoardRow.classList.add(`game-board`)
     gameBoardRow.style.backgroundColor = 'blue'
@@ -375,12 +339,12 @@ function checkEndOfSetup() {
     booleanSetUpComplete = true
   }
 }
-//-------------------------------Gameplay-Phase-------------------------------------//
+//-------------------------------Gameplay-Phase-------------------------------//
 function enterGameNav() {
   nation = 'USSR'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
-  horizontalBtn.style.visibility ='hidden';
-  verticalBtn.style.visibility ='hidden';
+  horizontalBtn.style.visibility = 'hidden';
+  verticalBtn.style.visibility = 'hidden';
   pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
   return
 }
@@ -469,39 +433,8 @@ function switchTurn() {
 function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
-function helperCheckEachShipNameUSA() {
-  if (shipHit === 'carrier') {
-    carrierUSA.hit()
-  } else if (shipHit === 'battleship') {
-    battleshipUSA.hit()
-  } else if (shipHit === 'cruiser') {
-    cruiserUSA.hit()
-  } else if (shipHit === 'submarine') {
-    submarineUSA.hit()
-  } else if (shipHit === 'destroyer') {
-    destroyerUSA.hit()
-  }
-  else
-    return
-}
-function helperCheckEachShipNameSoviet() {
-  if (shipHit === 'carrier') {
-    carrierSoviet.hit()
-    return
-  } else if (shipHit === 'battleship') {
-    battleshipSoviet.hit()
-    return
-  } else if (shipHit === 'cruiser') {
-    cruiserSoviet.hit()
-    return
-  } else if (shipHit === 'submarine') {
-    submarineSoviet.hit()
-    return
-  } else if (shipHit === 'destroyer') {
-    destroyerSoviet.hit()
-  } else
-    return
-}
+
+
 function renderTurns() {
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
@@ -528,7 +461,41 @@ function checkWinner() {
   }
   return false
 }
-
+//-------------------------------Helper-Methods-------------------------------//
+function helperCheckEachShipNameSoviet() {
+  if (shipHit === 'carrier') {
+    carrierSoviet.hit()
+    return
+  } else if (shipHit === 'battleship') {
+    battleshipSoviet.hit()
+    return
+  } else if (shipHit === 'cruiser') {
+    cruiserSoviet.hit()
+    return
+  } else if (shipHit === 'submarine') {
+    submarineSoviet.hit()
+    return
+  } else if (shipHit === 'destroyer') {
+    destroyerSoviet.hit()
+  } else
+    return
+}
+function helperCheckEachShipNameUSA() {
+  if (shipHit === 'carrier') {
+    carrierUSA.hit()
+  } else if (shipHit === 'battleship') {
+    battleshipUSA.hit()
+  } else if (shipHit === 'cruiser') {
+    cruiserUSA.hit()
+  } else if (shipHit === 'submarine') {
+    submarineUSA.hit()
+  } else if (shipHit === 'destroyer') {
+    destroyerUSA.hit()
+  }
+  else
+    return
+}
+//-------------------------------Reset-Functionality-------------------------------//
 function reset(evt) {
   nation = 'USA'
   gameBoard2.style.visibility = 'hidden'
@@ -545,5 +512,4 @@ function resetShips() {
     element.isPlaced = false
     element.isSunk = false
   });
-  console.log(allShipsList);
 }
