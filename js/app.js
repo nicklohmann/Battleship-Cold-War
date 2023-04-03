@@ -34,6 +34,12 @@ class Ship {
   }
   destroyed() {
     this.isSunk = true
+    if (this.nation === 'USA') {
+      USACount--
+    }
+    if (this.nation === 'Soviet') {
+      SOVCount--
+    }
   }
   hit() {
     this.hitCount++
@@ -87,6 +93,7 @@ let sovTotalHitCount = 0
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
+let hitMissMessageEl = document.querySelector('#HitMiss')
 const board1El = document.querySelector('.board')
 const squareEls = document.getElementsByClassName('.square')
 let verticalBtn = document.querySelector('#Vertical')
@@ -96,6 +103,7 @@ let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 const gameBoardRow = document.createElement('div')
 const nextGameBoardRow = document.createElement('div')
+
 /*----------------------------- Event Listeners -----------------------------*/
 //squareEls.addEventListener('click' , placeShip)
 document.addEventListener('DOMContentLoaded', init)
@@ -368,11 +376,11 @@ function checkEndOfSetup() {
 
 function enterGameNav() {
   console.log('GameNav');
-  nation = 'SOV'
+  nation = 'USSR'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   horizontalBtn.remove()
   verticalBtn.remove()
-  pieceSelectionMessageEl.textContent = `You need to sink ${SOVCount} more ships!`
+  pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
   return
 }
 
@@ -381,7 +389,7 @@ function sovAttack(evt) {
     console.log('returned')
     return
   }
-  if (nation != 'SOV') {
+  if (nation != 'USSR') {
     console.log('returned')
     return
   }
@@ -400,30 +408,30 @@ function sovAttack(evt) {
   }
   shipHit = boardSoviet[atk].name
   if (shipHit === undefined) {
-    placePieceMessageEl.textContent = `Miss!`
+    hitMissMessageEl.textContent = `Miss!`
     switchTurn()
     return
   }
-    console.log(shipHit);
-    helperCheckEachShipNameUSA(shipHit)
-    usaTotalHitCount++
-    placePieceMessageEl.textContent = `Hit!`
-    pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
-    sovMemoryArray.push(memory)
-    console.log(sovMemoryArray);
-    console.log('usaTotal: ' + usaTotalHitCount);
-    switchTurn()
-    return
+  console.log(shipHit);
+  helperCheckEachShipNameUSA(shipHit)
+  hitMissMessageEl.textContent = `Hit!`
+  pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
+  sovMemoryArray.push(memory)
+  console.log(sovMemoryArray);
+  switchTurn()
+  return
 }
 function checkIfPrevAtk(arr, val) {
   return arr.some((arrVal) => val === arrVal);
 }
 function switchTurn() {
-  if (nation === 'SOV') {
+  if (nation === 'USSR') {
     nation === 'USA'
+    renderTurns()
     return
   }
-  nation === 'SOV'
+  nation === 'USSR'
+  renderTurns()
   return
 }
 
@@ -439,7 +447,7 @@ function helperCheckEachShipNameUSA() {
     carrierUSA.hit()
   } else if (shipHit === 'battleship') {
     battleshipUSA.hit()
-  } else if (shipHit=== 'cruiser') {
+  } else if (shipHit === 'cruiser') {
     cruiserUSA.hit()
   } else if (shipHit === 'submarine') {
     submarineUSA.hit()
@@ -447,7 +455,7 @@ function helperCheckEachShipNameUSA() {
     destroyerUSA.hit()
   }
   else
-  return
+    return
 }
 
 function helperCheckEachShipNameSoviet() {
@@ -457,7 +465,7 @@ function helperCheckEachShipNameSoviet() {
   } else if (shipHit === 'battleship') {
     battleshipSoviet.hit()
     return
-  } else if (shipHit=== 'cruiser') {
+  } else if (shipHit === 'cruiser') {
     cruiserSoviet.hit()
     return
   } else if (shipHit === 'submarine') {
@@ -465,6 +473,16 @@ function helperCheckEachShipNameSoviet() {
     return
   } else if (shipHit === 'destroyer') {
     destroyerSoviet.hit()
-  } else 
-  return
+  } else
+    return
+}
+
+function renderTurns() {
+  placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
+  if (nation === 'USSR') {
+    pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
+  }
+  if (nation === 'USA') {
+    pieceSelectionMessageEl.textContent = `You need to sink ${SOVCount} more ships!`
+  }
 }
