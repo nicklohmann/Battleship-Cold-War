@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,26 @@
   <title>BattleShip-Cold-War</title>
   <script defer src="./js/app.js"></script>
   <link rel="stylesheet" href="./css/style.css">
-  
+
 </head>
+
 <body>
   <header class="header"></header>
-    <h1>Battleship</h1>
-    <nav class="placeShips">
-      <div id="HitMiss"></div>
-      <div id="directionBtn"></div>
-      <button id="Vertical">Vertical</button>
-      <button id ="Horizontal">Horizontal</button>
-      <div id="PlacePiece"></div>
-    </nav>
-  <div id="board1Container"></div>
-  <div id="board2Container"></div>
-  <button id="Reset">RESET GAME</button>
+  <h1>Battleship</h1>
+  <section id="gameBoardArea">
+    <div id="board1Container"></div>
+    <div id="board2Container"></div>
+  </section>
+  <nav class="placeShips">
+    <div id="HitMiss"></div>
+    <div id="directionBtn"></div>
+    <button class="btn" id="Vertical">Vertical</button>
+    <button class="btn" id="Horizontal">Horizontal</button>
+    <div id="PlacePiece"></div>
+    <button class="btn" id="Reset">RESET GAME</button>
+  </nav>
+  
+  
 </body>
+
 </html>
