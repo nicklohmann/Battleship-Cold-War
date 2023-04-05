@@ -31,7 +31,12 @@ body {
   border: solid 1px red;
   box-sizing: border-box;
 }
-
+#navTopRow {
+  margin-top: -100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 #gameBoardArea {
   display: flex;
   height: 560px;
