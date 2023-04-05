@@ -74,9 +74,6 @@ let resetBtn = document.querySelector('#Reset')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
-//const gameBoardRow = document.createElement('div')
-//const nextGameBoardRow = document.createElement('div')
-//let currentSquare = document.getElementById(`${nation}sq${num}`)
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
@@ -88,7 +85,6 @@ gameBoard2.addEventListener('click', usaAttack)
 resetBtn.addEventListener('click', reset)
 /*-------------------------------- Functions -------------------------------*/
 //---------------------------------------Set-Up-Phase-------------------------------//
-
 function init(Event) {
   nation = 'USA'
   createBoard(nation)
