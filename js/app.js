@@ -99,7 +99,7 @@ function init(Event) {
   currentBoard = boardUSA
   currentShip = shipListUSA[0]
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
-  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  //placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   hitMissMessageEl.textContent = ''
 }
 function initBoards() {
@@ -214,6 +214,7 @@ function updateNavBoard(evt) {
     placePieceMessageEl.textContent = 'Horizontal'
     placeDirection = 'Horizontal'
   }
+  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 }
 function placeShip(num) {
   horzDirection = 'LeftToRight'

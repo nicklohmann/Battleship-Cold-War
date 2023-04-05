@@ -16,13 +16,13 @@ body {
   align-items: flex-end;
 }
 #board1Container {
-  width: 440px;
-  height: 440px;
+  width: 400px;
+  height: 400px;
   display: flex;
 }
 #board2Container {
-  width: 440px;
-  height: 440px;
+  width: 400px;
+  height: 400px;
   display: flex;
 }
 .square {
@@ -37,9 +37,20 @@ body {
   align-items: flex-start;
   justify-content: center;
 }
-#gameBoardArea {
+#bothBoards {
   display: flex;
-  height: 560px;
+}
+#gameBoardArea1 {
+  display: flex;
+  height: 440px;
+  width: 1600px;
+  justify-content: center;
+  gap: 100px
+}
+#gameBoardArea2 {
+  display: flex;
+  height: 440px;
+  width: 1600px;
   justify-content: center;
   gap: 100px
 }
@@ -86,7 +97,8 @@ h1 {
   background-color: red;
   justify-content: space-around;
   display: flex;
-  align-self: center;
+  align-self: flex-start;
+  column-gap: 80px;
 }
 .navMessage {
   display: flex;
@@ -99,5 +111,11 @@ h1 {
   justify-content: space-between;
 }
 .flag {
-  width: 300px;
+  width: 330px;
+  height: 160px;
+}
+
+#columns {
+  display: flex;
+  justify-content: space-around;
 }
