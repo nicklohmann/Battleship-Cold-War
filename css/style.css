@@ -11,9 +11,6 @@ body {
   flex-wrap: wrap;
   width: 400px;
   height: 400px;
-  align-self: flex-end;
-  justify-content: flex-end;
-  align-items: flex-end;
 }
 #board1Container {
   width: 400px;
@@ -40,17 +37,9 @@ body {
 #bothBoards {
   display: flex;
 }
-#gameBoardArea1 {
+#gameBoardArea {
   display: flex;
-  height: 440px;
-  width: 1600px;
-  justify-content: center;
-  gap: 100px
-}
-#gameBoardArea2 {
-  display: flex;
-  height: 440px;
-  width: 1600px;
+  height: 560px;
   justify-content: center;
   gap: 100px
 }

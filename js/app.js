@@ -74,9 +74,9 @@ let resetBtn = document.querySelector('#Reset')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
-const gameBoardRow = document.createElement('div')
-const nextGameBoardRow = document.createElement('div')
-let currentSquare = document.getElementById(`${nation}sq${num}`)
+//const gameBoardRow = document.createElement('div')
+//const nextGameBoardRow = document.createElement('div')
+//let currentSquare = document.getElementById(`${nation}sq${num}`)
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
@@ -88,9 +88,10 @@ gameBoard2.addEventListener('click', usaAttack)
 resetBtn.addEventListener('click', reset)
 /*-------------------------------- Functions -------------------------------*/
 //---------------------------------------Set-Up-Phase-------------------------------//
-createBoard(nation)
+
 function init(Event) {
   nation = 'USA'
+  createBoard(nation)
   initBoards()
   horizontalBtn.style.visibility = 'visible';
   verticalBtn.style.visibility = 'visible';
@@ -99,8 +100,8 @@ function init(Event) {
   currentBoard = boardUSA
   currentShip = shipListUSA[0]
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
-  //placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
-  hitMissMessageEl.textContent = ''
+  placeCurrentShipMessageEl.textContent = ` `
+  hitMissMessageEl.textContent = ' '
 }
 function initBoards() {
   for (let i = 1; i <= 100; i++) {
@@ -174,6 +175,7 @@ function renderShipsSetup() {
   allShipsPlacedCheck(currentlist)
   switchShip(finished)
   placementSwitchBoard(finished)
+  console.log(finished);
   if (finished === true && nation === 'USA') {
     resetNavBoard()
   }
@@ -194,12 +196,11 @@ function handleClick(evt) {
   if (isSquare != `${nation}sq`) {
     return
   }
+  console.log();
   num = clicked.slice(5)
-    //evt.target.style.backgroundColor = 'green'
-    console.log(evt.target.textContent);
-    console.log(clicked);
-    console.log(nation);
-    console.log(currentSquare);
+  
+  evt.target.style.backgroundColor = 'lightgreen'
+  evt.target.textContent = 'x'
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
   }
@@ -255,7 +256,7 @@ function placeShip(num) {
       i--
     }
   }
-  console.log(currentBoard);
+  //console.log(currentBoard);
   currentShip.isPlaced = true
 }
 function isSquareValid(num) {
@@ -319,6 +320,7 @@ function playerTurn() {
 }
 function createBoard(nation) {
   if (nation === 'USA') {
+    const gameBoardRow = document.createElement('div')
     gameBoardRow.classList.add(`game-board`)
     gameBoardRow.style.backgroundColor = 'blue'
     gameBoardRow.id = nation
@@ -331,6 +333,7 @@ function createBoard(nation) {
     }
   }
   if (nation === 'SOV') {
+    const nextGameBoardRow = document.createElement('div')
     nextGameBoardRow.classList.add(`game-board`)
     nextGameBoardRow.style.backgroundColor = 'gold'
     nextGameBoardRow.id = nation
@@ -513,7 +516,9 @@ function reset(evt) {
   boardUSA = []
   finished = false;
   booleanSetUpComplete = false
+  placeCurrentShipMessageEl.textContent = ` `
   resetShips()
+  resetBoards()
   init()
 }
 function resetShips() {
@@ -524,6 +529,8 @@ function resetShips() {
   });
 }
 
-function resetBoard(){
-
+function resetBoards(){
+  gameBoard1.innerHTML = ""
+  gameBoard2.innerHTML = ""
+  return
 }
