@@ -323,7 +323,6 @@ function createBoard(nation) {
     gameBoardRow.id = nation
     for (let i = 1; i < 101; i++) {
       gameBoard1.append(gameBoardRow)
-      document.createElement('div')
       const square = document.createElement('div')
       square.classList.add('square')
       square.id = `${nation}sq${i}`
@@ -336,7 +335,6 @@ function createBoard(nation) {
     nextGameBoardRow.id = nation
     for (let i = 1; i < 101; i++) {
       gameBoard2.append(nextGameBoardRow)
-      document.createElement('div')
       const square = document.createElement('div')
       square.classList.add('square')
       square.id = `${nation}sq${i}`
@@ -528,4 +526,3 @@ function resetShips() {
 function resetBoard(){
 
 }
-
