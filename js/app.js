@@ -199,8 +199,6 @@ function handleClick(evt) {
   console.log();
   num = clicked.slice(5)
   
-  evt.target.style.backgroundColor = 'lightgreen'
-  evt.target.textContent = 'x'
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
   }
@@ -384,11 +382,17 @@ function sovAttack(evt) {
   }
   shipHit = boardUSA[atk].name
   if (shipHit === undefined) {
+    evt.target.style.backgroundColor = 'white'
+    evt.target.textContent = ''
+    evt.target.style.color = ''
     hitMissMessageEl.textContent = `Miss!`
     switchTurn()
     return
   }
   helperCheckEachShipNameUSA(shipHit)
+  evt.target.style.backgroundColor = 'black'
+  evt.target.textContent = 'X'
+  evt.target.style.color = 'red'
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   sovMemoryArray.push(memory)
@@ -419,11 +423,15 @@ function usaAttack(evt) {
   }
   shipHit = boardSoviet[atk].name
   if (shipHit === undefined) {
+    evt.target.style.backgroundColor = 'white'
     hitMissMessageEl.textContent = `Miss!`
     switchTurn()
     return
   }
   helperCheckEachShipNameSoviet(shipHit)
+  evt.target.style.backgroundColor = 'black'
+  evt.target.textContent = 'X'
+  evt.target.style.color = 'red'
   hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
