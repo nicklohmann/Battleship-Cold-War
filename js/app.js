@@ -91,6 +91,7 @@ function init(Event) {
   initBoards()
   horizontalBtn.style.visibility = 'visible';
   verticalBtn.style.visibility = 'visible';
+  gameBoard1.style.visibility = 'visible'
   currentShipIndex = 0
   currentlist = shipListUSA
   currentBoard = boardUSA
@@ -172,7 +173,9 @@ function renderShipsSetup() {
   switchShip(finished)
   placementSwitchBoard(finished)
   console.log(finished);
+  console.log(nation);
   if (finished === true && nation === 'USA') {
+    console.log('reset');
     resetNavBoard()
   }
   checkEndOfSetup()
@@ -192,9 +195,7 @@ function handleClick(evt) {
   if (isSquare != `${nation}sq`) {
     return
   }
-  console.log();
   num = clicked.slice(5)
-  
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
   }
@@ -212,6 +213,7 @@ function updateNavBoard(evt) {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 }
 function placeShip(num) {
+ // console.log("ran:" + clicked)
   horzDirection = 'LeftToRight'
   vertDirection = 'UpToDown'
   num = parseInt(num, 10)
