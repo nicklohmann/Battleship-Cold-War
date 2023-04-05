@@ -62,12 +62,12 @@ let shipHit
 let boardCounter = 0
 const sovMemoryArray = []
 const usaMemoryArray = []
+let clicked
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
 let hitMissMessageEl = document.querySelector('#HitMiss')
 const board1El = document.querySelector('.board')
-const squareEls = document.getElementsByClassName('.square')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 let resetBtn = document.querySelector('#Reset')
@@ -76,6 +76,7 @@ let gameBoard2 = document.querySelector('#board2Container')
 let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 const gameBoardRow = document.createElement('div')
 const nextGameBoardRow = document.createElement('div')
+let currentSquare = document.getElementById(`${nation}sq${num}`)
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
@@ -188,12 +189,17 @@ function handleClick(evt) {
   if (finished === true) {
     return
   }
-  const clicked = evt.target.id
+  clicked = evt.target.id
   let isSquare = clicked.slice(0, 5)
   if (isSquare != `${nation}sq`) {
     return
   }
   num = clicked.slice(5)
+    //evt.target.style.backgroundColor = 'green'
+    console.log(evt.target.textContent);
+    console.log(clicked);
+    console.log(nation);
+    console.log(currentSquare);
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
   }
@@ -223,6 +229,7 @@ function placeShip(num) {
       currentBoard[num] = currentShip
       num++
       i--
+  
     }
   }
   if (placeDirection === 'Horizontal' && horzDirection === 'RightToLeft') {
@@ -230,6 +237,7 @@ function placeShip(num) {
       currentBoard[num] = currentShip
       num--
       i--
+    
     }
   }
   if (placeDirection === 'Vertical' && vertDirection === 'UpToDown') {
@@ -246,6 +254,7 @@ function placeShip(num) {
       i--
     }
   }
+  console.log(currentBoard);
   currentShip.isPlaced = true
 }
 function isSquareValid(num) {
@@ -300,6 +309,7 @@ function resetNavBoard() {
     createBoard(nation)
     boardCounter++
   }
+  gameBoard1.style.visibility = 'hidden'
   gameBoard2.style.visibility = 'visible'
 
 }
@@ -341,6 +351,7 @@ function checkEndOfSetup() {
 }
 //-------------------------------Gameplay-Phase-------------------------------//
 function enterGameNav() {
+  gameBoard1.style.visibility = 'visible'
   nation = 'USSR'
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   horizontalBtn.style.visibility = 'hidden';
@@ -513,3 +524,8 @@ function resetShips() {
     element.isSunk = false
   });
 }
+
+function resetBoard(){
+
+}
+
