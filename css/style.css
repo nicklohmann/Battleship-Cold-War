@@ -25,6 +25,9 @@ body {
 .square {
   width: 40px;
   height: 40px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
   border: solid 1px red;
   box-sizing: border-box;
 }

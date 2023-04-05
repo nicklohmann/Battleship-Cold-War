@@ -305,12 +305,12 @@ function resetNavBoard() {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   finished = false
   nation = 'SOV'
+  console.log(boardCounter);
   if (boardCounter === 0) {
     createBoard(nation)
     boardCounter++
   }
   gameBoard1.style.visibility = 'hidden'
-  gameBoard2.style.visibility = 'visible'
 
 }
 function playerTurn() {
@@ -519,9 +519,10 @@ function helperCheckEachShipNameUSA() {
 //-------------------------------Reset-Functionality-------------------------------//
 function reset(evt) {
   nation = 'USA'
-  gameBoard2.style.visibility = 'hidden'
+  //gameBoard2.style.visibility = 'hidden'
   boardSoviet = []
   boardUSA = []
+  boardCounter = 0
   finished = false;
   booleanSetUpComplete = false
   placeCurrentShipMessageEl.textContent = ` `
