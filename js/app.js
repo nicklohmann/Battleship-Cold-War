@@ -64,6 +64,16 @@ let sovMemoryArray = []
 let usaMemoryArray = []
 let clicked
 /*------------------------ Cached Element References ------------------------*/
+let USAcarrierEl = document.querySelector('#ACarrier')
+let USAbattleshipEl = document.querySelector('#ABattleship')
+let USAcruiserEl = document.querySelector('#ACruiser')
+let USAsubmarineEl = document.querySelector('#ASubmarine')
+let USAdestoryerEl = document.querySelector('#ADestoryer')
+let SOVcarrierEl = document.querySelector('#BCarrier')
+let SOVbattleshipEl = document.querySelector('#BBattleship')
+let SOVcruiserEl = document.querySelector('#BCruiser')
+let SOVsubmarineEl = document.querySelector('#BSubmarine')
+let SOVdestoryerEl = document.querySelector('#BDestoryer')
 let activeMessage = document.querySelector('#active')
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -462,10 +472,10 @@ function createAtkErrorMessage() {
 function renderTurns() {
   activeMessage.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
-    pieceSelectionMessageEl.textContent = `${nation} need to sink ${USACount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${USACount} more ships!`
   }
   if (nation === 'USA') {
-    pieceSelectionMessageEl.textContent = `${nation} need to sink ${SOVCount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${SOVCount} more ships!`
   }
 }
 function checkWinner() {
