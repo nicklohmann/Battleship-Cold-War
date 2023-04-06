@@ -116,3 +116,19 @@ h1 {
   
   background-color: black;
 }
+
+.legend {
+  display: flex;
+  margin-left: 200px;
+  flex-direction: column;
+}
+#Lhit {
+margin-top: 20px;
+display: flex;
+flex-direction: row;
+}
+#Lmiss {
+margin-top: 20px;
+display: flex;
+flex-direction: row;
+}
