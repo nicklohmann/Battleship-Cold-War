@@ -195,6 +195,7 @@ function handleClick(evt) {
   if (isSquare != `${nation}sq`) {
     return
   }
+  evt.target
   num = clicked.slice(5)
   if (booleanSetUpComplete === false) {
     renderShipsSetup()
