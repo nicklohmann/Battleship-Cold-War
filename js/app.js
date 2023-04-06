@@ -64,6 +64,7 @@ let sovMemoryArray = []
 let usaMemoryArray = []
 let clicked
 /*------------------------ Cached Element References ------------------------*/
+let activeMessage = document.querySelector('#active')
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
 let hitMissMessageEl = document.querySelector('#HitMiss')
@@ -95,9 +96,9 @@ function init(Event) {
   currentlist = shipListUSA
   currentBoard = boardUSA
   currentShip = shipListUSA[0]
+  activeMessage.textContent = 'Place your ship! Click a Vertical or Horizontal Button to start'
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = ` `
-  hitMissMessageEl.textContent = ' '
   sovMemoryArray = []
   usaMemoryArray = []
 }
@@ -117,6 +118,7 @@ function switchShip(booleanComplete) {
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+    activeMessage.textContent = placeCurrentShipMessageEl.textContent
   }
 }
 function checkOverlap(num) {
@@ -202,14 +204,17 @@ function handleClick(evt) {
 function updateNavBoard(evt) {
   let clicked = evt.target.id
   if (clicked === 'Vertical') {
+    placeDirection = clicked
     placePieceMessageEl.textContent = 'Vertical'
-    placeDirection = 'Vertical'
+    activeMessage.textContent = `Place your ${currentShip.name}!`
   }
   if (clicked === 'Horizontal') {
     placePieceMessageEl.textContent = 'Horizontal'
-    placeDirection = 'Horizontal'
+    activeMessage.textContent = `Place your ${currentShip.name}!`
+    placeDirection = clicked
   }
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  activeMessage.textContent = `Place your ${currentShip.name}!`
 }
 function placeShip(num) {
   horzDirection = 'LeftToRight'
@@ -298,6 +303,7 @@ function placementSwitchBoard(finished) {
 function resetNavBoard() {
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  activeMessage.textContent = `Place your ${currentShip.name}! Click a Vertical or Horizontal Button to start`
   finished = false
   nation = 'SOV'
   if (boardCounter === 0) {
@@ -347,10 +353,12 @@ function checkEndOfSetup() {
 function enterGameNav() {
   gameBoard1.style.visibility = 'visible'
   nation = 'USSR'
-  placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
+  activeMessage.textContent = `${nation}'s turn to attack! Click square on enemy board.`
+  //placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   horizontalBtn.style.visibility = 'hidden';
   verticalBtn.style.visibility = 'hidden';
-  pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
+  placePieceMessageEl.textContent =''
+  pieceSelectionMessageEl.textContent = `${nation} needs to sink ${USACount} more ships!`
   return
 }
 function sovAttack(evt) {
@@ -379,7 +387,9 @@ function sovAttack(evt) {
     evt.target.style.backgroundColor = 'black'
     evt.target.textContent = ''
     evt.target.style.color = ''
-    hitMissMessageEl.textContent = `Miss!`
+    activeMessage.textContent = `Miss! USA's turn`
+    activeMessage.textContent = `Miss! USA's turn`
+    sovMemoryArray.push(memory)
     switchTurn()
     return
   }
@@ -387,7 +397,8 @@ function sovAttack(evt) {
   evt.target.style.backgroundColor = 'black'
   evt.target.textContent = 'X'
   evt.target.style.color = 'red'
-  hitMissMessageEl.textContent = `Hit!`
+  activeMessage.textContent = `Hit! USA's turn`
+  activeMessage.textContent = `Hit! USA's turn`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   sovMemoryArray.push(memory)
   checkWinner()
@@ -418,7 +429,8 @@ function usaAttack(evt) {
   shipHit = boardSoviet[atk].name
   if (shipHit === undefined) {
     evt.target.style.backgroundColor = 'black'
-    hitMissMessageEl.textContent = `Miss!`
+    activeMessage.textContent = `Miss! USSR's turn`
+    usaMemoryArray.push(memory)
     switchTurn()
     return
   }
@@ -426,7 +438,6 @@ function usaAttack(evt) {
   evt.target.style.backgroundColor = 'black'
   evt.target.textContent = 'X'
   evt.target.style.color = 'red'
-  hitMissMessageEl.textContent = `Hit!`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
   switchTurn()
@@ -449,17 +460,18 @@ function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
 function renderTurns() {
-  placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
+  activeMessage.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
-    pieceSelectionMessageEl.textContent = `You need to sink ${USACount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} need to sink ${USACount} more ships!`
   }
   if (nation === 'USA') {
-    pieceSelectionMessageEl.textContent = `You need to sink ${SOVCount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} need to sink ${SOVCount} more ships!`
   }
 }
 function checkWinner() {
   if (SOVCount === 0) {
     hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
+    activeMessage.textContent = `USA WINS!!!`
     placePieceMessageEl.textContent = `USA WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``
@@ -467,6 +479,7 @@ function checkWinner() {
   }
   if (USACount === 0) {
     hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
+    activeMessage.textContent = `USSR WINS!!!`
     placePieceMessageEl.textContent = `USSR WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``

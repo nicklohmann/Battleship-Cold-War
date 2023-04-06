@@ -18,7 +18,9 @@
     <img class="flag"
       src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/255px-Flag_of_the_United_States.svg.png"
       alt="" class='flag' id="USAflag">
-    <h1>Battleship</h1>
+    <h1 class="heading">Battleship
+      <div class="heading" id="active"></div>
+    </h1>
     <img class="flag" id="USSRflag"
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6fdDZo7ImZKREjW95_owmCFPvn_SS8ghjKg&usqp=CAU" alt="">
   </header>
@@ -31,6 +33,7 @@
       <button class="btn" id="Vertical">Vertical</button>
       <div class="navMessage" id="directionBtn"></div>
       <button class="btn" id="Horizontal">Horizontal</button>
+      <div class="navMessage" id="PlacePiece"></div>
       <div class="legend"><u>Legend</u>
         <div id="Lhit">Hit:
           <div id="hitLegend">X</div>
@@ -39,13 +42,8 @@
           <div id="missLegend"></div>
         </div>
       </div>
+      <button class="btn" id="Reset">RESET GAME</button>
     </section>
-    <div class="navMessage" id="HitMiss"></div>
-      
-
-
-    <div class="navMessage" id="PlacePiece"></div>
-    <button class="btn" id="Reset">RESET GAME</button>
   </nav>
 
 
