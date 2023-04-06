@@ -3,7 +3,7 @@
 
 Battleship-Cold-War is a simple recreation of the popular board game Battleship. Battleship is a casual two-player guessing game. The game begins with each player placing their ships without the other player seeing, and taking turns attempting shots onto the enemy board to sink all of their ships! 
 
-## Play the Game Here: https://battleship-cold-war-nickl.netlify.app/
+## [Play the Game Here](https://battleship-cold-war-nickl.netlify.app/)
 
 **Technologies Used:**
 1. JavaScript
