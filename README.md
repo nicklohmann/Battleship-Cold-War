@@ -15,6 +15,8 @@ Battleship-Cold-War is a simple recreation of the popular board game Battleship.
   
 **Credits:**
 
+Favicon https://www.nicepng.com/maxp/u2e6u2t4w7y3y3o0/
+
 For the color palette used: https://catseyeranch.com/tag/1958-cold-war-color-palette/
 
 **IceBox Items:**
@@ -22,4 +24,5 @@ For the color palette used: https://catseyeranch.com/tag/1958-cold-war-color-pal
 - [ ] Add column and row numbers
 - [ ] Add a list of Ships for each player in the nav bar
 - [ ] Add animations on hits
+- [ ] Add AI player
 

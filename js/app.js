@@ -67,7 +67,6 @@ let clicked
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
 let hitMissMessageEl = document.querySelector('#HitMiss')
-const board1El = document.querySelector('.board')
 let verticalBtn = document.querySelector('#Vertical')
 let horizontalBtn = document.querySelector('#Horizontal')
 let resetBtn = document.querySelector('#Reset')
@@ -174,10 +173,7 @@ function renderShipsSetup() {
   allShipsPlacedCheck(currentlist)
   switchShip(finished)
   placementSwitchBoard(finished)
-  console.log(finished);
-  console.log(nation);
   if (finished === true && nation === 'USA') {
-    console.log('reset');
     resetNavBoard()
   }
   checkEndOfSetup()
@@ -216,7 +212,6 @@ function updateNavBoard(evt) {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
 }
 function placeShip(num) {
- // console.log("ran:" + clicked)
   horzDirection = 'LeftToRight'
   vertDirection = 'UpToDown'
   num = parseInt(num, 10)
@@ -255,7 +250,6 @@ function placeShip(num) {
       i--
     }
   }
-  //console.log(currentBoard);
   currentShip.isPlaced = true
 }
 function isSquareValid(num) {
@@ -306,7 +300,6 @@ function resetNavBoard() {
   placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
   finished = false
   nation = 'SOV'
-  console.log(boardCounter);
   if (boardCounter === 0) {
     createBoard(nation)
     boardCounter++
@@ -374,8 +367,6 @@ function sovAttack(evt) {
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
-  console.log(sovMemoryArray)
-  console.log(memory)
   if (checkIfPrevAtk(sovMemoryArray, memory) === true) {
     createAtkErrorMessage()
     return
@@ -417,8 +408,6 @@ function usaAttack(evt) {
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
-  console.log(usaMemoryArray)
-  console.log(memory)
   if (checkIfPrevAtk(usaMemoryArray, memory) === true) {
     createAtkErrorMessage()
     return
@@ -459,8 +448,6 @@ function switchTurn() {
 function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
-
-
 function renderTurns() {
   placePieceMessageEl.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
@@ -524,7 +511,6 @@ function helperCheckEachShipNameUSA() {
 //-------------------------------Reset-Functionality-------------------------------//
 function reset(evt) {
   nation = 'USA'
-  //gameBoard2.style.visibility = 'hidden'
   boardSoviet = []
   boardUSA = []
   boardCounter = 0
