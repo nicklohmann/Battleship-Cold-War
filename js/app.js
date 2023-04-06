@@ -60,8 +60,8 @@ let USACount = 5
 let SOVCount = 5
 let shipHit
 let boardCounter = 0
-const sovMemoryArray = []
-const usaMemoryArray = []
+let sovMemoryArray = []
+let usaMemoryArray = []
 let clicked
 /*------------------------ Cached Element References ------------------------*/
 let placePieceMessageEl = document.querySelector('#directionBtn')
@@ -99,6 +99,8 @@ function init(Event) {
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
   placeCurrentShipMessageEl.textContent = ` `
   hitMissMessageEl.textContent = ' '
+  sovMemoryArray = []
+  usaMemoryArray = []
 }
 function initBoards() {
   for (let i = 1; i <= 100; i++) {
@@ -372,6 +374,8 @@ function sovAttack(evt) {
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
+  console.log(sovMemoryArray)
+  console.log(memory)
   if (checkIfPrevAtk(sovMemoryArray, memory) === true) {
     createAtkErrorMessage()
     return
@@ -381,7 +385,7 @@ function sovAttack(evt) {
   }
   shipHit = boardUSA[atk].name
   if (shipHit === undefined) {
-    evt.target.style.backgroundColor = 'white'
+    evt.target.style.backgroundColor = 'black'
     evt.target.textContent = ''
     evt.target.style.color = ''
     hitMissMessageEl.textContent = `Miss!`
@@ -413,6 +417,8 @@ function usaAttack(evt) {
   let enemySquare = atkClick.slice(0, 5)
   let atk = atkClick.slice(5)
   let memory = atk
+  console.log(usaMemoryArray)
+  console.log(memory)
   if (checkIfPrevAtk(usaMemoryArray, memory) === true) {
     createAtkErrorMessage()
     return
@@ -422,7 +428,7 @@ function usaAttack(evt) {
   }
   shipHit = boardSoviet[atk].name
   if (shipHit === undefined) {
-    evt.target.style.backgroundColor = 'white'
+    evt.target.style.backgroundColor = 'black'
     hitMissMessageEl.textContent = `Miss!`
     switchTurn()
     return
