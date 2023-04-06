@@ -32,7 +32,7 @@ body {
   box-sizing: border-box;
 }
 #navTopRow {
-  margin-top: -100px;
+  margin-top: -80px;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -121,9 +121,11 @@ h1 {
   display: flex;
   margin-left: 200px;
   flex-direction: column;
+  border: black;
+  border-radius: .1px;
 }
 #Lhit {
-margin-top: 20px;
+margin-top: 10px;
 display: flex;
 flex-direction: row;
 }
@@ -131,4 +133,27 @@ flex-direction: row;
 margin-top: 20px;
 display: flex;
 flex-direction: row;
+}
+#hitLegend {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+  justify-content: center;
+  border: solid 1px red;
+  box-sizing: border-box;
+  background-color: black;
+}
+#missLegend {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+  border: solid 1px red;
+  box-sizing: border-box;
+  background-color: black;
 }
