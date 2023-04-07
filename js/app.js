@@ -330,7 +330,7 @@ function createBoard(nation) {
   if (nation === 'USA') {
     const gameBoardRow = document.createElement('div')
     gameBoardRow.classList.add(`game-board`)
-    gameBoardRow.style.backgroundColor = 'blue'
+    gameBoardRow.style.backgroundColor = '#7db5d4'
     gameBoardRow.id = nation
     for (let i = 1; i < 101; i++) {
       gameBoard1.append(gameBoardRow)
@@ -343,7 +343,7 @@ function createBoard(nation) {
   if (nation === 'SOV') {
     const nextGameBoardRow = document.createElement('div')
     nextGameBoardRow.classList.add(`game-board`)
-    nextGameBoardRow.style.backgroundColor = 'gold'
+    nextGameBoardRow.style.backgroundColor = '#7db5d4'
     nextGameBoardRow.id = nation
     for (let i = 1; i < 101; i++) {
       gameBoard2.append(nextGameBoardRow)
@@ -394,7 +394,7 @@ function sovAttack(evt) {
   }
   shipHit = boardUSA[atk].name
   if (shipHit === undefined) {
-    evt.target.style.backgroundColor = 'black'
+    evt.target.style.backgroundColor = '#5b9597'
     evt.target.textContent = ''
     evt.target.style.color = ''
     activeMessage.textContent = `Miss! USA's turn`
@@ -404,9 +404,7 @@ function sovAttack(evt) {
     return
   }
   helperCheckEachShipNameUSA(shipHit)
-  evt.target.style.backgroundColor = 'black'
-  evt.target.textContent = 'X'
-  evt.target.style.color = 'red'
+  evt.target.style.backgroundColor = '#bf2c32'
   activeMessage.textContent = `Hit! USA's turn`
   activeMessage.textContent = `Hit! USA's turn`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
@@ -438,16 +436,14 @@ function usaAttack(evt) {
   }
   shipHit = boardSoviet[atk].name
   if (shipHit === undefined) {
-    evt.target.style.backgroundColor = 'black'
+    evt.target.style.backgroundColor = '#5b9597'
     activeMessage.textContent = `Miss! USSR's turn`
     usaMemoryArray.push(memory)
     switchTurn()
     return
   }
   helperCheckEachShipNameSoviet(shipHit)
-  evt.target.style.backgroundColor = 'black'
-  evt.target.textContent = 'X'
-  evt.target.style.color = 'red'
+  evt.target.style.backgroundColor = '#bf2c32'
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
   switchTurn()

@@ -2,8 +2,8 @@ html {
   box-sizing: border-box;
 }
 body {
-
-  background-color: #f3eac3;
+  font-family: sa;
+  background-color: #5b9597;
   margin: 0;
 }
 .game-board {
@@ -28,7 +28,7 @@ body {
   font-weight: bold;
   text-align: center;
   font-size: 30px;
-  border: solid 1px red;
+  border: solid 1px white;
   box-sizing: border-box;
 }
 #navTopRow {
@@ -155,9 +155,9 @@ flex-direction: row;
   text-align: center;
   font-size: 30px;
   justify-content: center;
-  border: solid 1px red;
+  border: solid 1px white;
   box-sizing: border-box;
-  background-color: black;
+  background-color: #bf2c32;
 }
 #missLegend {
   display: flex;
@@ -166,9 +166,9 @@ flex-direction: row;
   font-weight: bold;
   text-align: center;
   font-size: 30px;
-  border: solid 1px red;
+  border: solid 1px white;
   box-sizing: border-box;
-  background-color: black;
+  background-color: #5b9597;
 }
 
 .USASHIPS {
@@ -194,4 +194,10 @@ flex-direction: row;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+#USAShipList {
+  padding-top: 10px;
+}
+#USAShipList {
+  padding-top: 10px;
 }
