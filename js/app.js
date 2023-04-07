@@ -108,11 +108,8 @@ function init(Event) {
   currentShip = shipListUSA[0]
   activeMessage.textContent = 'Place your ship! Click a Vertical or Horizontal Button to start'
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
-  placeCurrentShipMessageEl.textContent = ` `
   sovMemoryArray = []
   usaMemoryArray = []
-  console.log(carrierUSA.isPlaced);
-  console.log(battleshipUSA.isPlaced);
   checkBothShipList()
 }
 function initBoards() {
@@ -127,9 +124,13 @@ function switchShip(booleanComplete) {
   if (booleanComplete === true) {
     return
   }
+  console.log('entered');
   if (currentShip.isPlaced === true) {
+    console.log('working');
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
+    console.log(currentShip.name);
+    console.log(currentShipIndex);
     placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
     activeMessage.textContent = placeCurrentShipMessageEl.textContent
   }
@@ -468,6 +469,9 @@ function createAtkErrorMessage() {
   pieceSelectionMessageEl.textContent = `Cant attack that square again!`
 }
 function renderTurns() {
+  if (checkWinner() === true) {
+    return
+  }
   activeMessage.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
     pieceSelectionMessageEl.textContent = `${nation} needs to sink ${USACount} more ships!`
@@ -478,17 +482,13 @@ function renderTurns() {
 }
 function checkWinner() {
   if (SOVCount === 0) {
-    //hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
     activeMessage.textContent = `USA WINS!!!`
-    placePieceMessageEl.textContent = `USA WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``
     return true
   }
   if (USACount === 0) {
-    //hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
     activeMessage.textContent = `USSR WINS!!!`
-    placePieceMessageEl.textContent = `USSR WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     placeCurrentShipMessageEl.textContent = ``
     return true
@@ -529,55 +529,30 @@ function helperCheckEachShipNameUSA() {
   else
     return
 }
-//-------------------------------Reset-Functionality-------------------------------//
-function reset(evt) {
-  nation = 'USA'
-  boardSoviet = []
-  boardUSA = []
-  boardCounter = 0
-  finished = false;
-  booleanSetUpComplete = false
-  placeCurrentShipMessageEl.textContent = ` `
-  resetShips()
-  resetBoards()
-  init()
-}
-function resetShips() {
-  allShipsList.forEach(element => {
-    element.hitCount = 0;
-    element.isPlaced = false
-    element.isSunk = false
-  });
-}
-
-function resetBoards() {
-  gameBoard1.innerHTML = ""
-  gameBoard2.innerHTML = ""
-  return
-}
 function checkBothShipList() {
   checkShipListUSA()
   checkShipListSOV()
   checkPlacingShipListSOV()
   checkPlacingShipListUSA()
 }
-
 function checkShipListUSA() {
-  console.log('entered');
   shipListUSA.forEach(element => {
-    console.log(element.isSunk);
     if (element.isSunk === true) {
-      console.log('sunk');
       if (element.name === 'carrier') {
         USAcarrierEl.style.textDecoration = 'line-through'
+        USAcarrierEl.style.textDecorationColor = 'red'
       } else if (element.name === 'battleship') {
         USAbattleshipEl.style.textDecoration = 'line-through'
+        USAbattleshipEl.style.textDecorationColor = 'red'
       } else if (element.name === 'cruiser') {
         USAcruiserEl.style.textDecoration = 'line-through'
+        USAcruiserEl.style.textDecorationColor = 'red'
       } else if (element.name === 'submarine') {
         USAsubmarineEl.style.textDecoration = 'line-through'
+        USAsubmarineEl.style.textDecorationColor = 'red'
       } else if (element.name === 'destroyer') {
         USAdestoryerEl.style.textDecoration = 'line-through'
+        USAdestoryerEl.style.textDecorationColor = 'red'
       }
     }
     if (element.isSunk === false){
@@ -600,14 +575,19 @@ function checkShipListSOV() {
     if (element.isSunk === true) {
       if (element.name === 'carrier') {
         SOVcarrierEl.style.textDecoration = 'line-through'
+        SOVcarrierEl.style.textDecorationColor = 'red'
       } else if (element.name === 'battleship') {
         SOVbattleshipEl.style.textDecoration = 'line-through'
+        SOVbattleshipEl.style.textDecorationColor = 'red'
       } else if (element.name === 'cruiser') {
         SOVcruiserEl.style.textDecoration = 'line-through'
+        SOVcruiserEl.style.textDecorationColor = 'red'
       } else if (element.name === 'submarine') {
         SOVsubmarineEl.style.textDecoration = 'line-through'
+        SOVsubmarineEl.style.textDecorationColor = 'red'
       } else if (element.name === 'destroyer') {
         SOVdestroyerEl.style.textDecoration = 'line-through'
+        SOVdestroyerEl.style.textDecorationColor = 'red'
       }
     }
     if (element.isSunk === false){
@@ -686,3 +666,34 @@ function checkPlacingShipListSOV() {
     }
   })
 }
+//-------------------------------Reset-Functionality-------------------------------//
+function reset(evt) {
+  USACount = 5
+  SOVCount = 5
+  nation = 'USA'
+  boardSoviet = []
+  boardUSA = []
+  boardCounter = 0
+  finished = false;
+  booleanSetUpComplete = false
+  placeCurrentShipMessageEl.textContent = ` `
+  resetShips()
+  resetBoards()
+  init()
+}
+function resetShips() {
+  allShipsList.forEach(element => {
+    element.hitCount = 0;
+    element.isPlaced = false
+    element.isSunk = false
+  });
+}
+
+function resetBoards() {
+  gameBoard1.innerHTML = ""
+  gameBoard2.innerHTML = ""
+  return
+}
+
+
+
