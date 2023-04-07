@@ -1,5 +1,5 @@
 ### Battleship-Cold-War
-![GameScreenshot](https://user-images.githubusercontent.com/77218350/230393857-dc570dff-9845-4b61-bd90-6fd38da3a97e.PNG)
+![newBoardcreation](https://user-images.githubusercontent.com/77218350/230569971-09e3345d-9fa6-425a-9181-6c61c6d8256a.PNG)
 
 ## [Play the Game Here](https://battleship-cold-war-nickl.netlify.app/)
 
@@ -25,4 +25,5 @@ For the color palette used: https://catseyeranch.com/tag/1958-cold-war-color-pal
 - [ ] Add a list of Ships for each player in the nav bar
 - [ ] Add animations on hits
 - [ ] Add AI player
+
 
