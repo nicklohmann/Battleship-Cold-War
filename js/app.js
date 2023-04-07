@@ -478,7 +478,7 @@ function renderTurns() {
 }
 function checkWinner() {
   if (SOVCount === 0) {
-    hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
+    //hitMissMessageEl.textContent = `All of USSR's Ships are Sunk!`
     activeMessage.textContent = `USA WINS!!!`
     placePieceMessageEl.textContent = `USA WINS!!!`
     pieceSelectionMessageEl.textContent = ``
@@ -486,7 +486,7 @@ function checkWinner() {
     return true
   }
   if (USACount === 0) {
-    hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
+    //hitMissMessageEl.textContent = `All of USA's Ships are Sunk!`
     activeMessage.textContent = `USSR WINS!!!`
     placePieceMessageEl.textContent = `USSR WINS!!!`
     pieceSelectionMessageEl.textContent = ``
