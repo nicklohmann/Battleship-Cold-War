@@ -2,7 +2,7 @@ html {
   box-sizing: border-box;
 }
 body {
-  font-family: sa;
+  font-family: sans-serif;
   background-color: #5b9597;
   margin: 0;
 }
@@ -58,10 +58,13 @@ h1 {
   background-color: #4f6a57
 }
 #active {
+  font-size: 30px;
+  font-family: sans-serif;
   display: flex;
   color: #fdd85d;
   justify-content: center;
-  background-color: #4f6a57
+  background-color: #4f6a57;
+  text-shadow: none;
 }
 
 .board {
@@ -198,4 +201,9 @@ flex-direction: row;
 #BothShipList {
   padding-top: 10px;
   font-size: 30px;
+}
+#Title {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 60px;
+  text-shadow: 4px 4px 4px black;
 }
