@@ -83,7 +83,6 @@ let horizontalBtn = document.querySelector('#Horizontal')
 let resetBtn = document.querySelector('#Reset')
 let gameBoard1 = document.querySelector('#board1Container')
 let gameBoard2 = document.querySelector('#board2Container')
-let placeCurrentShipMessageEl = document.querySelector('#PlacePiece')
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('DOMContentLoaded', init)
 verticalBtn.addEventListener('click', updateNavBoard)
@@ -124,15 +123,11 @@ function switchShip(booleanComplete) {
   if (booleanComplete === true) {
     return
   }
-  console.log('entered');
   if (currentShip.isPlaced === true) {
-    console.log('working');
     currentShipIndex++
     currentShip = currentlist[currentShipIndex]
-    console.log(currentShip.name);
-    console.log(currentShipIndex);
-    placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
-    activeMessage.textContent = placeCurrentShipMessageEl.textContent
+    pieceSelectionMessageEl.textContent = `Click square for ${currentShip.name} placement`
+    activeMessage.textContent = pieceSelectionMessageEl.textContent
   }
 }
 function checkOverlap(num) {
@@ -228,7 +223,7 @@ function updateNavBoard(evt) {
     activeMessage.textContent = `Place your ${currentShip.name}!`
     placeDirection = clicked
   }
-  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  pieceSelectionMessageEl.textContent = `Click square for ${currentShip.name} placement`
   activeMessage.textContent = `Place your ${currentShip.name}!`
 }
 function placeShip(num) {
@@ -237,7 +232,7 @@ function placeShip(num) {
   num = parseInt(num, 10)
   let i = currentShip.length
   if (isSquareValid(num) === true && checkOverlap(num) === true) {
-    placeCurrentShipMessageEl.textContent = `Pick valid square for ${currentShip.name}`
+    pieceSelectionMessageEl.textContent = `Pick valid square for ${currentShip.name}`
     return
   }
   if ((placeDirection === 'Horizontal') && (horzDirection === 'LeftToRight')) {
@@ -317,7 +312,7 @@ function placementSwitchBoard(finished) {
 }
 function resetNavBoard() {
   placePieceMessageEl.textContent = 'Choose Vertical or Horizontal'
-  placeCurrentShipMessageEl.textContent = `Click square for ${currentShip.name} placement`
+  pieceSelectionMessageEl.textContent = `Click square for ${currentShip.name} placement`
   activeMessage.textContent = `Place your ${currentShip.name}! Click a Vertical or Horizontal Button to start`
   finished = false
   nation = 'SOV'
@@ -484,13 +479,11 @@ function checkWinner() {
   if (SOVCount === 0) {
     activeMessage.textContent = `USA WINS!!!`
     pieceSelectionMessageEl.textContent = ``
-    placeCurrentShipMessageEl.textContent = ``
     return true
   }
   if (USACount === 0) {
     activeMessage.textContent = `USSR WINS!!!`
     pieceSelectionMessageEl.textContent = ``
-    placeCurrentShipMessageEl.textContent = ``
     return true
   }
   return false
@@ -555,7 +548,7 @@ function checkShipListUSA() {
         USAdestoryerEl.style.textDecorationColor = 'red'
       }
     }
-    if (element.isSunk === false){
+    if (element.isSunk === false) {
       if (element.name === 'carrier') {
         USAcarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
@@ -590,7 +583,7 @@ function checkShipListSOV() {
         SOVdestroyerEl.style.textDecorationColor = 'red'
       }
     }
-    if (element.isSunk === false){
+    if (element.isSunk === false) {
       if (element.name === 'carrier') {
         SOVcarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
@@ -620,7 +613,7 @@ function checkPlacingShipListUSA() {
         USAdestoryerEl.style.visibility = 'hidden'
       }
     }
-    if (element.isPlaced === true){
+    if (element.isPlaced === true) {
       if (element.name === 'carrier') {
         USAcarrierEl.style.visibility = 'visible'
       } else if (element.name === 'battleship') {
@@ -651,7 +644,7 @@ function checkPlacingShipListSOV() {
         SOVdestroyerEl.style.visibility = 'hidden'
       }
     }
-    if (element.isPlaced === true){
+    if (element.isPlaced === true) {
       if (element.name === 'carrier') {
         SOVcarrierEl.style.visibility = 'visible'
       } else if (element.name === 'battleship') {
@@ -676,7 +669,7 @@ function reset(evt) {
   boardCounter = 0
   finished = false;
   booleanSetUpComplete = false
-  placeCurrentShipMessageEl.textContent = ` `
+  pieceSelectionMessageEl.textContent = ` `
   resetShips()
   resetBoards()
   init()

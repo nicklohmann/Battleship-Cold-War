@@ -24,9 +24,11 @@ For the color palette used: https://catseyeranch.com/tag/1958-cold-war-color-pal
 **IceBox Items:**
 
 - [ ] Add column and row numbers
+- [ ] Move Reset to a more visible place after the game ends
 - [ ] Add hover entire ship when placing
-- [ ] Add animations on hits
+- [ ] Add animations on hits and ship sinking
 - [ ] Add AI player
+- [ ] Add Audio for a win and the ship sinking
 
 
 
