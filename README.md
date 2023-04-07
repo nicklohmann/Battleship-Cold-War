@@ -1,5 +1,7 @@
 ### Battleship-Cold-War
-![newBoardcreation](https://user-images.githubusercontent.com/77218350/230569971-09e3345d-9fa6-425a-9181-6c61c6d8256a.PNG)
+![finishedBoard](https://user-images.githubusercontent.com/77218350/230572573-52dbf180-bd47-4312-a593-e08e684c8902.PNG)
+
+
 
 ## [Play the Game Here](https://battleship-cold-war-nickl.netlify.app/)
 
@@ -22,8 +24,9 @@ For the color palette used: https://catseyeranch.com/tag/1958-cold-war-color-pal
 **IceBox Items:**
 
 - [ ] Add column and row numbers
-- [ ] Add a list of Ships for each player in the nav bar
+- [ ] Add hover entire ship when placing
 - [ ] Add animations on hits
 - [ ] Add AI player
+
 
 
