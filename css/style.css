@@ -195,9 +195,7 @@ flex-direction: row;
   flex-direction: column;
   justify-content: flex-start;
 }
-#USAShipList {
+#BothShipList {
   padding-top: 10px;
-}
-#USAShipList {
-  padding-top: 10px;
+  font-size: 30px;
 }

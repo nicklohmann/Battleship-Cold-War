@@ -407,9 +407,9 @@ function sovAttack(evt) {
   helperCheckEachShipNameUSA(shipHit)
   evt.target.style.backgroundColor = '#bf2c32'
   activeMessage.textContent = `Hit! USA's turn`
-  activeMessage.textContent = `Hit! USA's turn`
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   sovMemoryArray.push(memory)
+  checkBothShipList()
   checkWinner()
   switchTurn()
   return
@@ -447,6 +447,7 @@ function usaAttack(evt) {
   evt.target.style.backgroundColor = '#bf2c32'
   pieceSelectionMessageEl.textContent = `You hit the enemy ${shipHit}`
   usaMemoryArray.push(memory)
+  checkBothShipList()
   switchTurn()
   return
 }
@@ -564,11 +565,10 @@ function checkBothShipList() {
 function checkShipListUSA() {
   console.log('entered');
   shipListUSA.forEach(element => {
-    console.log(element.name);
-    if (element.isPlaced === false) {
+    console.log(element.isSunk);
+    if (element.isSunk === true) {
+      console.log('sunk');
       if (element.name === 'carrier') {
-        console.log('second')
-        console.log(USAcarrierEl);
         USAcarrierEl.style.textDecoration = 'line-through'
       } else if (element.name === 'battleship') {
         USAbattleshipEl.style.textDecoration = 'line-through'
@@ -580,9 +580,8 @@ function checkShipListUSA() {
         USAdestoryerEl.style.textDecoration = 'line-through'
       }
     }
-    if (element.isPlaced === true){
+    if (element.isSunk === false){
       if (element.name === 'carrier') {
-        console.log('shouldNotRUn');
         USAcarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
         USAbattleshipEl.style.textDecoration = 'none'
@@ -598,7 +597,7 @@ function checkShipListUSA() {
 }
 function checkShipListSOV() {
   shipListSoviet.forEach(element => {
-    if (element.isPlaced === false) {
+    if (element.isSunk === true) {
       if (element.name === 'carrier') {
         SOVcarrierEl.style.textDecoration = 'line-through'
       } else if (element.name === 'battleship') {
@@ -611,7 +610,7 @@ function checkShipListSOV() {
         SOVdestroyerEl.style.textDecoration = 'line-through'
       }
     }
-    if (element.isPlaced === true){
+    if (element.isSunk === false){
       if (element.name === 'carrier') {
         SOVcarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
@@ -627,14 +626,9 @@ function checkShipListSOV() {
   })
 }
 function checkPlacingShipListUSA() {
-  console.log('entered');
   shipListUSA.forEach(element => {
-    console.log(element.name);
-    console.log(element.isPlaced);
     if (element.isPlaced === false) {
       if (element.name === 'carrier') {
-        console.log('second')
-        console.log(USAcarrierEl);
         USAcarrierEl.style.visibility = 'hidden'
       } else if (element.name === 'battleship') {
         USAbattleshipEl.style.visibility = 'hidden'
@@ -647,7 +641,6 @@ function checkPlacingShipListUSA() {
       }
     }
     if (element.isPlaced === true){
-      console.log('shouldNotRUn');
       if (element.name === 'carrier') {
         USAcarrierEl.style.visibility = 'visible'
       } else if (element.name === 'battleship') {
@@ -693,17 +686,3 @@ function checkPlacingShipListSOV() {
     }
   })
 }
-
-
-
-
-// let USAcarrierEl = document.querySelector('#ACarrier')
-// let USAbattleshipEl = document.querySelector('#ABattleship')
-// let USAcruiserEl = document.querySelector('#ACruiser')
-// let USAsubmarineEl = document.querySelector('#ASubmarine')
-// let USAdestoryerEl = document.querySelector('#ADestroyer')
-// let SOVcarrierEl = document.querySelector('#BCarrier')
-// let SOVbattleshipEl = document.querySelector('#BBattleship')
-// let SOVcruiserEl = document.querySelector('#BCruiser')
-// let SOVsubmarineEl = document.querySelector('#BSubmarine')
-// let SOVdestoryerEl = document.querySelector('#BDestoryer')
