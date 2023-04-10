@@ -11,11 +11,11 @@ class Ship {
   destroyed() {
     this.isSunk = true
     if (this.nation === 'USA') {
-      USACount--
+      usaCount--
       checkWinner()
     }
     if (this.nation === 'Soviet') {
-      SOVCount--
+      sovCount--
       checkWinner()
     }
   }
@@ -56,24 +56,24 @@ let vertDirection = 'UpToDown'
 let horzDirection = 'LeftToRight'
 let currentShipIndex = 0
 let booleanSetUpComplete = false
-let USACount = 5
-let SOVCount = 5
+let usaCount = 5
+let sovCount = 5
 let shipHit
 let boardCounter = 0
 let sovMemoryArray = []
 let usaMemoryArray = []
 let clicked
 /*------------------------ Cached Element References ------------------------*/
-let USAcarrierEl = document.querySelector('#ACarrier')
-let USAbattleshipEl = document.querySelector('#ABattleship')
-let USAcruiserEl = document.querySelector('#ACruiser')
-let USAsubmarineEl = document.querySelector('#ASubmarine')
-let USAdestoryerEl = document.querySelector('#ADestroyer')
-let SOVcarrierEl = document.querySelector('#BCarrier')
-let SOVbattleshipEl = document.querySelector('#BBattleship')
-let SOVcruiserEl = document.querySelector('#BCruiser')
-let SOVsubmarineEl = document.querySelector('#BSubmarine')
-let SOVdestroyerEl = document.querySelector('#BDestroyer')
+let usaCarrierEl = document.querySelector('#ACarrier')
+let usaBattleshipEl = document.querySelector('#ABattleship')
+let usaCruiserEl = document.querySelector('#ACruiser')
+let usaSubmarineEl = document.querySelector('#ASubmarine')
+let usaDestoryerEl = document.querySelector('#ADestroyer')
+let sovCarrierEl = document.querySelector('#BCarrier')
+let sovBattleshipEl = document.querySelector('#BBattleship')
+let sovCruiserEl = document.querySelector('#BCruiser')
+let sovSubmarineEl = document.querySelector('#BSubmarine')
+let sovDestroyerEl = document.querySelector('#BDestroyer')
 let activeMessage = document.querySelector('#active')
 let placePieceMessageEl = document.querySelector('#directionBtn')
 let pieceSelectionMessageEl = document.querySelector('#PlacePiece')
@@ -94,7 +94,7 @@ gameBoard2.addEventListener('click', usaAttack)
 resetBtn.addEventListener('click', reset)
 /*-------------------------------- Functions -------------------------------*/
 //---------------------------------------Set-Up-Phase-------------------------------//
-function init(Event) {
+function init() {
   nation = 'USA'
   createBoard(nation)
   initBoards()
@@ -365,7 +365,7 @@ function enterGameNav() {
   horizontalBtn.style.visibility = 'hidden';
   verticalBtn.style.visibility = 'hidden';
   placePieceMessageEl.textContent = ''
-  pieceSelectionMessageEl.textContent = `${nation} needs to sink ${USACount} more ships!`
+  pieceSelectionMessageEl.textContent = `${nation} needs to sink ${sovCount} more ships!`
   return
 }
 function sovAttack(evt) {
@@ -469,19 +469,19 @@ function renderTurns() {
   }
   activeMessage.textContent = `${nation}'s turn to attack! Click square on enemy board.`
   if (nation === 'USSR') {
-    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${USACount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${usaCount} more ships!`
   }
   if (nation === 'USA') {
-    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${SOVCount} more ships!`
+    pieceSelectionMessageEl.textContent = `${nation} needs to sink ${sovCount} more ships!`
   }
 }
 function checkWinner() {
-  if (SOVCount === 0) {
+  if (sovCount === 0) {
     activeMessage.textContent = `USA WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     return true
   }
-  if (USACount === 0) {
+  if (usaCount === 0) {
     activeMessage.textContent = `USSR WINS!!!`
     pieceSelectionMessageEl.textContent = ``
     return true
@@ -532,33 +532,33 @@ function checkShipListUSA() {
   shipListUSA.forEach(element => {
     if (element.isSunk === true) {
       if (element.name === 'carrier') {
-        USAcarrierEl.style.textDecoration = 'line-through'
-        USAcarrierEl.style.textDecorationColor = 'red'
+        usaCarrierEl.style.textDecoration = 'line-through'
+        usaCarrierEl.style.textDecorationColor = 'red'
       } else if (element.name === 'battleship') {
-        USAbattleshipEl.style.textDecoration = 'line-through'
-        USAbattleshipEl.style.textDecorationColor = 'red'
+        usaBattleshipEl.style.textDecoration = 'line-through'
+        usaBattleshipEl.style.textDecorationColor = 'red'
       } else if (element.name === 'cruiser') {
-        USAcruiserEl.style.textDecoration = 'line-through'
-        USAcruiserEl.style.textDecorationColor = 'red'
+        usaCruiserEl.style.textDecoration = 'line-through'
+        usaCruiserEl.style.textDecorationColor = 'red'
       } else if (element.name === 'submarine') {
-        USAsubmarineEl.style.textDecoration = 'line-through'
-        USAsubmarineEl.style.textDecorationColor = 'red'
+        usaSubmarineEl.style.textDecoration = 'line-through'
+        usaSubmarineEl.style.textDecorationColor = 'red'
       } else if (element.name === 'destroyer') {
-        USAdestoryerEl.style.textDecoration = 'line-through'
-        USAdestoryerEl.style.textDecorationColor = 'red'
+        usaDestoryerEl.style.textDecoration = 'line-through'
+        usaDestoryerEl.style.textDecorationColor = 'red'
       }
     }
     if (element.isSunk === false) {
       if (element.name === 'carrier') {
-        USAcarrierEl.style.textDecoration = 'none'
+        usaCarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
-        USAbattleshipEl.style.textDecoration = 'none'
+        usaBattleshipEl.style.textDecoration = 'none'
       } else if (element.name === 'cruiser') {
-        USAcruiserEl.style.textDecoration = 'none'
+        usaCruiserEl.style.textDecoration = 'none'
       } else if (element.name === 'submarine') {
-        USAsubmarineEl.style.textDecoration = 'none'
+        usaSubmarineEl.style.textDecoration = 'none'
       } else if (element.name === 'destroyer') {
-        USAdestoryerEl.style.textDecoration = 'none'
+        usaDestoryerEl.style.textDecoration = 'none'
       }
     }
   })
@@ -567,33 +567,33 @@ function checkShipListSOV() {
   shipListSoviet.forEach(element => {
     if (element.isSunk === true) {
       if (element.name === 'carrier') {
-        SOVcarrierEl.style.textDecoration = 'line-through'
-        SOVcarrierEl.style.textDecorationColor = 'red'
+        sovCarrierEl.style.textDecoration = 'line-through'
+        sovCarrierEl.style.textDecorationColor = 'red'
       } else if (element.name === 'battleship') {
-        SOVbattleshipEl.style.textDecoration = 'line-through'
-        SOVbattleshipEl.style.textDecorationColor = 'red'
+        sovBattleshipEl.style.textDecoration = 'line-through'
+        sovBattleshipEl.style.textDecorationColor = 'red'
       } else if (element.name === 'cruiser') {
-        SOVcruiserEl.style.textDecoration = 'line-through'
-        SOVcruiserEl.style.textDecorationColor = 'red'
+        sovCruiserEl.style.textDecoration = 'line-through'
+        sovCruiserEl.style.textDecorationColor = 'red'
       } else if (element.name === 'submarine') {
-        SOVsubmarineEl.style.textDecoration = 'line-through'
-        SOVsubmarineEl.style.textDecorationColor = 'red'
+        sovSubmarineEl.style.textDecoration = 'line-through'
+        sovSubmarineEl.style.textDecorationColor = 'red'
       } else if (element.name === 'destroyer') {
-        SOVdestroyerEl.style.textDecoration = 'line-through'
-        SOVdestroyerEl.style.textDecorationColor = 'red'
+        sovDestroyerEl.style.textDecoration = 'line-through'
+        sovDestroyerEl.style.textDecorationColor = 'red'
       }
     }
     if (element.isSunk === false) {
       if (element.name === 'carrier') {
-        SOVcarrierEl.style.textDecoration = 'none'
+        sovCarrierEl.style.textDecoration = 'none'
       } else if (element.name === 'battleship') {
-        SOVbattleshipEl.style.textDecoration = 'none'
+        sovBattleshipEl.style.textDecoration = 'none'
       } else if (element.name === 'cruiser') {
-        SOVcruiserEl.style.textDecoration = 'none'
+        sovCruiserEl.style.textDecoration = 'none'
       } else if (element.name === 'submarine') {
-        SOVsubmarineEl.style.textDecoration = 'none'
+        sovSubmarineEl.style.textDecoration = 'none'
       } else if (element.name === 'destroyer') {
-        SOVdestroyerEl.style.textDecoration = 'none'
+        sovDestroyerEl.style.textDecoration = 'none'
       }
     }
   })
@@ -602,28 +602,28 @@ function checkPlacingShipListUSA() {
   shipListUSA.forEach(element => {
     if (element.isPlaced === false) {
       if (element.name === 'carrier') {
-        USAcarrierEl.style.visibility = 'hidden'
+        usaCarrierEl.style.visibility = 'hidden'
       } else if (element.name === 'battleship') {
-        USAbattleshipEl.style.visibility = 'hidden'
+        usaBattleshipEl.style.visibility = 'hidden'
       } else if (element.name === 'cruiser') {
-        USAcruiserEl.style.visibility = 'hidden'
+        usaCruiserEl.style.visibility = 'hidden'
       } else if (element.name === 'submarine') {
-        USAsubmarineEl.style.visibility = 'hidden'
+        usaSubmarineEl.style.visibility = 'hidden'
       } else if (element.name === 'destroyer') {
-        USAdestoryerEl.style.visibility = 'hidden'
+        usaDestoryerEl.style.visibility = 'hidden'
       }
     }
     if (element.isPlaced === true) {
       if (element.name === 'carrier') {
-        USAcarrierEl.style.visibility = 'visible'
+        usaCarrierEl.style.visibility = 'visible'
       } else if (element.name === 'battleship') {
-        USAbattleshipEl.style.visibility = 'visible'
+        usaBattleshipEl.style.visibility = 'visible'
       } else if (element.name === 'cruiser') {
-        USAcruiserEl.style.visibility = 'visible'
+        usaCruiserEl.style.visibility = 'visible'
       } else if (element.name === 'submarine') {
-        USAsubmarineEl.style.visibility = 'visible'
+        usaSubmarineEl.style.visibility = 'visible'
       } else if (element.name === 'destroyer') {
-        USAdestoryerEl.style.visibility = 'visible'
+        usaDestoryerEl.style.visibility = 'visible'
       }
     }
   })
@@ -633,36 +633,36 @@ function checkPlacingShipListSOV() {
   shipListSoviet.forEach(element => {
     if (element.isPlaced === false) {
       if (element.name === 'carrier') {
-        SOVcarrierEl.style.visibility = 'hidden'
+        sovCarrierEl.style.visibility = 'hidden'
       } else if (element.name === 'battleship') {
-        SOVbattleshipEl.style.visibility = 'hidden'
+        sovBattleshipEl.style.visibility = 'hidden'
       } else if (element.name === 'cruiser') {
-        SOVcruiserEl.style.visibility = 'hidden'
+        sovCruiserEl.style.visibility = 'hidden'
       } else if (element.name === 'submarine') {
-        SOVsubmarineEl.style.visibility = 'hidden'
+        sovSubmarineEl.style.visibility = 'hidden'
       } else if (element.name === 'destroyer') {
-        SOVdestroyerEl.style.visibility = 'hidden'
+        sovDestroyerEl.style.visibility = 'hidden'
       }
     }
     if (element.isPlaced === true) {
       if (element.name === 'carrier') {
-        SOVcarrierEl.style.visibility = 'visible'
+        sovCarrierEl.style.visibility = 'visible'
       } else if (element.name === 'battleship') {
-        SOVbattleshipEl.style.visibility = 'visible'
+        sovBattleshipEl.style.visibility = 'visible'
       } else if (element.name === 'cruiser') {
-        SOVcruiserEl.style.visibility = 'visible'
+        sovCruiserEl.style.visibility = 'visible'
       } else if (element.name === 'submarine') {
-        SOVsubmarineEl.style.visibility = 'visible'
+        sovSubmarineEl.style.visibility = 'visible'
       } else if (element.name === 'destroyer') {
-        SOVdestroyerEl.style.visibility = 'visible'
+        sovDestroyerEl.style.visibility = 'visible'
       }
     }
   })
 }
 //-------------------------------Reset-Functionality-------------------------------//
 function reset(evt) {
-  USACount = 5
-  SOVCount = 5
+  usaCount = 5
+  sovCount = 5
   nation = 'USA'
   boardSoviet = []
   boardUSA = []
